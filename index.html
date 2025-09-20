@@ -477,6 +477,21 @@
       }
       .user-list-info { display: flex; align-items: center; gap: 12px; }
       .user-list-avatar { width: 32px; height: 32px; border-radius: 50%; }
+      
+      .tab-badge {
+        background-color: var(--primary-color);
+        color: white;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 7px;
+        border-radius: 10px;
+        margin-left: 8px;
+        display: none; /* Hidden by default */
+      }
+
+      .tab-badge.visible {
+        display: inline-block; /* Shown when it has a count */
+      }
 
       /* --- Modal --- */
       .modal {
@@ -736,8 +751,8 @@
           <div class="admin-title">👑 Dasbor Admin</div>
           <div class="admin-tabs">
             <button class="tab-btn active" data-tab="stats">Statistik</button>
-            <button class="tab-btn" data-tab="pending">Persetujuan</button>
-            <button class="tab-btn" data-tab="users">Kelola Pengguna</button>
+            <button class="tab-btn" data-tab="pending">Persetujuan <span id="pendingCountBadge" class="tab-badge"></span></button>
+            <button class="tab-btn" data-tab="users">Kelola Pengguna <span id="totalUsersBadge" class="tab-badge"></span></button>
           </div>
 
           <div id="statsContent" class="tab-content active">
@@ -1368,6 +1383,26 @@
                     pendingUsers.push(userData);
                 }
             });
+
+            // Update badges
+            const pendingBadge = document.getElementById('pendingCountBadge');
+            const totalUsersBadge = document.getElementById('totalUsersBadge');
+            
+            if (pendingUsers.length > 0) {
+              pendingBadge.textContent = pendingUsers.length;
+              pendingBadge.classList.add('visible');
+            } else {
+              pendingBadge.classList.remove('visible');
+            }
+
+            if (allUsers.length > 0) {
+              totalUsersBadge.textContent = allUsers.length;
+              totalUsersBadge.classList.add('visible');
+            } else {
+              totalUsersBadge.classList.remove('visible');
+            }
+
+
             displayPendingUsers(pendingUsers);
             displayAllUsers(allUsers);
             updateUserChart(allUsers);
@@ -1417,7 +1452,7 @@
                   ${!isSelf ? `<button class="btn btn-info" onclick="openTagModal('${userData.id}', '${escapeHtml(userData.displayName)}')" style="padding: 6px 12px; font-size: 12px;">Kelola Tag</button>` : ''}
                   ${!isSelf && (userData.status === 'pending' || userData.status === 'rejected') ? `<button class="btn btn-success" onclick="updateUserStatus('${userData.id}', 'approved')" style="padding: 6px 12px; font-size: 12px;">Setujui</button>` : ''}
                   ${!isSelf && (userData.status === 'approved' || userData.status === 'pending') ? `<button class="btn btn-warning" onclick="updateUserStatus('${userData.id}', 'rejected')" style="padding: 6px 12px; font-size: 12px;">Blokir</button>` : ''}
-                  ${!isSelf ? `<button class="btn btn-danger" onclick="deleteUser('${userData.id}')" style="padding: 6px 12px; font-size: 12px;">Hapus</button>` : ''}
+                  ${!isSelf ? `<button class="btn btn-danger" onclick="deleteUser('${userData.id}', '${escapeHtml(userData.displayName)}')" style="padding: 6px 12px; font-size: 12px;">Hapus</button>` : ''}
                 </div>
             </div>
         `}).join("");
@@ -1482,14 +1517,46 @@
         catch (error) { showMessage("Gagal memperbarui status pengguna.", "error"); }
       }
 
-      async function deleteUser(userId) {
-        if (!confirm("PERINGATAN: Tindakan ini hanya menghapus data pengguna dari database, bukan dari sistem autentikasi Firebase. Yakin ingin melanjutkan?")) return;
-        try {
-            await db.collection("users").doc(userId).delete();
-            showMessage("Data pengguna berhasil dihapus.", "success");
-        } catch (error) {
-            showMessage("Gagal menghapus data pengguna.", "error");
-        }
+      async function deleteUser(userIdToDelete, userDisplayName) {
+          if (!confirm(`PERINGATAN: Anda akan menghapus pengguna "${userDisplayName}". SEMUA link milik pengguna ini akan dialihkan ke akun Anda. Yakin ingin melanjutkan?`)) return;
+
+          const admin = currentUser;
+          if (!isAdmin || !admin) {
+              showMessage("Hanya admin yang dapat melakukan tindakan ini.", "error");
+              return;
+          }
+
+          try {
+              // Sanitize display name for the tag
+              const safeDisplayName = userDisplayName.toLowerCase().replace(/[^a-z0-9]/g, '');
+              const migrationTag = `migrasi-${safeDisplayName}`;
+
+              // Step 1: Find all links by the user to be deleted
+              const linksQuery = db.collection("links").where("userId", "==", userIdToDelete);
+              const linksSnapshot = await linksQuery.get();
+
+              // Step 2: Create a batch to update all links
+              const batch = db.batch();
+              linksSnapshot.forEach(doc => {
+                  const linkRef = db.collection("links").doc(doc.id);
+                  batch.update(linkRef, {
+                      userId: admin.uid,
+                      userName: admin.displayName,
+                      userTags: [migrationTag]
+                  });
+              });
+
+              // Step 3: Commit the batch update for links
+              await batch.commit();
+
+              // Step 4: Delete the user document
+              await db.collection("users").doc(userIdToDelete).delete();
+
+              showMessage(`Pengguna "${userDisplayName}" berhasil dihapus dan ${linksSnapshot.size} link telah dialihkan.`, "success");
+          } catch (error) {
+              console.error("Error deleting user and migrating links:", error);
+              showMessage("Gagal menghapus pengguna.", "error");
+          }
       }
       
       // --- TAG MANAGEMENT FUNCTIONS ---
