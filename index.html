@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PeEmJe LinkSpace</title>
+  
+    <meta name="title" content="PeEmJe Link Space" />
+    <meta
+      name="description"
+      content="PeEmJe LinkSpace: Hub digital terpadu untuk mengorganisasi setiap koneksi penting dalam hidup Anda. Lebih dari sekadar kumpulan link, ini adalah ruang pribadi yang dinamis untuk menyatukan semua yang Anda butuhkan—dari materi manajemen sekolah hingga referensi pribadi—dalam satu tempat yang rapi dan mudah diakses." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pmj-linkspace.vercel.app/" />
+    <meta property="og:title" content="PeEmJe LinkSpace" />
+    <meta
+      property="og:description"
+      content="PeEmJe LinkSpace: Hub digital terpadu untuk mengorganisasi setiap koneksi penting dalam hidup Anda. Lebih dari sekadar kumpulan link, ini adalah ruang pribadi yang dinamis untuk menyatukan semua yang Anda butuhkan—dari materi manajemen sekolah hingga referensi pribadi—dalam satu tempat yang rapi dan mudah diakses." />
+    <meta
+      property="og:image"
+      content="https://pmj-linkspace.vercel.app/assets/apple-icon-144x144.png" />
+
+    <!-- X (Twitter) -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://pmj-linkspace.vercel.app/" />
+    <meta property="twitter:title" content="PeEmJe LinkSpace" />
+    <meta
+      property="twitter:description"
+      content="PeEmJe LinkSpace: Hub digital terpadu untuk mengorganisasi setiap koneksi penting dalam hidup Anda. Lebih dari sekadar kumpulan link, ini adalah ruang pribadi yang dinamis untuk menyatukan semua yang Anda butuhkan—dari materi manajemen sekolah hingga referensi pribadi—dalam satu tempat yang rapi dan mudah diakses." />
+    <meta
+      property="twitter:image"
+      content="https://pmj-linkspace.vercel.app/assets/apple-icon-144x144.png" />
+
+    <!-- Meta Tags Generated with https://metatags.io -->
+    <meta name="theme-color" content="#0f172a" />
+    <!-- Manifest yang diperbaiki -->
+
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="/assets/apple-icon-57x57.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="/assets/apple-icon-60x60.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="/assets/apple-icon-72x72.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="/assets/apple-icon-76x76.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="/assets/apple-icon-114x114.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="/assets/apple-icon-120x120.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="/assets/apple-icon-144x144.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/assets/apple-icon-152x152.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-icon-180x180.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/android-icon-192x192.png" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="144x144"
+      href="/assets/android-icon-144x144.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/assets/favicon-96x96.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary-color: #4f46e5;
+        --primary-hover: #4338ca;
+        --danger-color: #ef4444;
+        --danger-hover: #dc2626;
+        --warning-color: #f59e0b;
+        --warning-hover: #d97706;
+        --success-color: #22c55e;
+        --info-color: #3b82f6;
+        --background-color: #f8fafc;
+        --card-background: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --border-color: #e2e8f0;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-primary);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      /* --- Auth Page --- */
+      .auth-container {
+        background: var(--card-background);
+        border-radius: 12px;
+        padding: 40px;
+        max-width: 400px;
+        margin: 100px auto;
+        border: 1px solid var(--border-color);
+        text-align: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
+      
+      .logo img {
+        height: 56px;
+      }
+      
+      /* Styles for the login page logo specifically */
+      .auth-logo {
+        flex-direction: column; /* Stack items vertically */
+        gap: 12px; /* Adjust gap for vertical stacking */
+        margin-bottom: 10px;
+      }
+
+      .auth-logo img {
+        height: 170px; /* Make logo bigger */
+      }
+
+      .auth-container p {
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+      }
+
+      /* --- Main App --- */
+      .main-container {
+        background: transparent;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+      
+      .header .logo {
+        font-size: 1.5rem;
+        justify-content: flex-start; /* Align header logo to the left */
+      }
+      
+      .header .logo img {
+        height: 32px;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .user-details {
+        text-align: left;
+      }
+
+      #userRoleOrTags {
+        margin-top: 2px;
+        min-height: 22px; /* Reserve space to prevent layout shift */
+      }
+
+      .user-info span#userName {
+        font-weight: 600;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      
+      /* --- Buttons --- */
+      .btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      .btn:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+      .btn-secondary:hover { background-color: #f1f5f9; }
+      .btn-danger { background-color: var(--danger-color); }
+      .btn-danger:hover { background-color: var(--danger-hover); }
+      .btn-warning { background-color: var(--warning-color); }
+      .btn-warning:hover { background-color: var(--warning-hover); }
+      .btn-info { background-color: var(--info-color); }
+      .btn-success { background-color: var(--success-color); }
+
+
+      /* --- Forms & Search --- */
+       .form-section {
+        background: var(--card-background);
+        padding: 24px;
+        border-radius: 12px;
+        margin-bottom: 32px;
+        border: 1px solid var(--border-color);
+      }
+
+      .form-section h3 {
+        font-size: 1.25rem;
+        margin-bottom: 24px;
+      }
+
+      .form-group { margin-bottom: 20px; }
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+      
+      .form-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      }
+      
+      .privacy-options { display: flex; gap: 20px; margin-top: 10px; }
+      .privacy-option { display: flex; align-items: center; gap: 8px; }
+
+      .search-container { position: relative; margin-bottom: 16px; }
+      .search-input {
+        width: 100%;
+        padding: 12px 16px 12px 40px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+      }
+      .search-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+      }
+
+      /* --- Link Card --- */
+      .link-card {
+        background: var(--card-background);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        border: 1px solid var(--border-color);
+        transition: all 0.2s ease;
+      }
+      
+      .link-card:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transform: translateY(-2px);
+      }
+      
+      .link-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+      .link-author-date {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+      }
+      .link-url {
+        color: var(--primary-color);
+        text-decoration: none;
+        margin-bottom: 12px;
+        display: block;
+        word-break: break-all;
+        font-size: 14px;
+      }
+      .link-url:hover { text-decoration: underline; }
+      .link-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+
+      .link-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .link-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+      .badges-container { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+      .privacy-badge, .tag-badge {
+        padding: 3px 10px;
+        border-radius: 99px;
+        font-size: 12px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .privacy-public { background-color: #ecfdf5; color: #166534; }
+      .privacy-private { background-color: #feefee; color: #b91c1c; }
+      .tag-badge { background-color: #eef2ff; color: #4338ca;}
+
+      /* --- Admin Section --- */
+      .admin-section {
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 32px;
+      }
+      .admin-title { font-size: 1.5rem; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; }
+      .admin-tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); overflow-x: auto;}
+      .tab-btn {
+        padding: 8px 16px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        white-space: nowrap;
+      }
+      .tab-btn.active {
+        color: var(--primary-color);
+        border-bottom-color: var(--primary-color);
+      }
+      .tab-content { display: none; }
+      .tab-content.active { display: block; }
+      
+      .chart-container {
+        max-width: 300px;
+        margin: 20px auto;
+      }
+      
+      .user-list-item {
+        background: #f8fafc;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid var(--border-color);
+      }
+      .user-list-info { display: flex; align-items: center; gap: 12px; }
+      .user-list-avatar { width: 32px; height: 32px; border-radius: 50%; }
+
+      /* --- Modal --- */
+      .modal {
+        display: none;
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(15, 23, 42, 0.5);
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+        align-items: center; justify-content: center;
+      }
+
+      .modal.show { display: flex; }
+
+      .modal-content {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 440px;
+        width: 90%;
+        position: relative;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        text-align: center;
+      }
+      .modal-content .modal-icon { font-size: 3rem; margin-bottom: 16px; }
+      .modal-close {
+        position: absolute; right: 12px; top: 12px;
+        font-size: 24px; cursor: pointer; color: var(--text-secondary);
+        width: 32px; height: 32px; line-height: 32px;
+      }
+
+      .hidden { display: none; }
+
+      /* --- Loading Spinner --- */
+      .loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        color: var(--text-secondary);
+      }
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid var(--border-color);
+        border-top-color: var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 16px;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* --- Link Container Scroll --- */
+      #linksContainer {
+        max-height: 60vh;
+        overflow-y: auto;
+        padding-right: 10px;
+        margin-right: -10px;
+      }
+
+      #linksContainer::-webkit-scrollbar { width: 8px; }
+      #linksContainer::-webkit-scrollbar-track { background: transparent; }
+      #linksContainer::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 8px; }
+      #linksContainer::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+      /* --- Filters & Tags --- */
+      #filterContainer { 
+        margin-bottom: 24px; 
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+      .filter-btn {
+        background-color: #fff;
+        color: var(--text-secondary);
+        border: 1px solid var(--border-color);
+        padding: 6px 14px;
+        border-radius: 99px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        margin: 0;
+      }
+      .filter-btn.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+      #currentTags .tag-item { display: inline-flex; align-items: center; background: #eef2ff; color: #4338ca; padding: 4px 8px; border-radius: 6px; margin: 2px; }
+      #currentTags .tag-remove { margin-left: 6px; cursor: pointer; font-weight: bold; }
+
+      /* --- Tutorial Card --- */
+      .tutorial-card {
+        background: #eef2ff;
+        border: 1px solid #c7d2fe;
+        color: #4338ca;
+        border-radius: 12px;
+        padding: 24px;
+        margin: -16px 0 32px 0;
+        position: relative;
+      }
+      .tutorial-card h4 {
+        margin-bottom: 12px;
+      }
+      .tutorial-card ul {
+        list-style-position: inside;
+        padding-left: 0;
+      }
+      .tutorial-card li {
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+      .close-tutorial {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #6366f1;
+      }
+
+      @media (max-width: 768px) {
+        .container { padding: 20px 15px; }
+        .auth-container { margin-top: 50px; padding: 30px; }
+        .header { flex-direction: column; gap: 20px; text-align: center; }
+        .user-info { flex-direction: column; gap: 10px; }
+        .user-details { text-align: center; }
+        #userRoleOrTags.badges-container {
+            justify-content: center; /* Center tags on mobile */
+        }
+        .link-meta { flex-direction: column; align-items: flex-start; gap: 12px; }
+        .link-actions { width: 100%; justify-content: flex-start; }
+        .user-list-item { flex-direction: column; align-items: flex-start; gap: 16px; }
+        .modal-content { width: calc(100% - 30px); }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Auth Container -->
+    <div id="authContainer" class="container">
+      <div class="auth-container">
+        <div class="logo auth-logo">
+          <img src="/assets/icon.png" alt="PeEmJe LinkSpace Logo">
+          <span>PeEmJe LinkSpace</span>
+        </div>
+        <p>Kelola semua link penting Anda di satu tempat.</p>
+        <button id="loginBtn" class="btn" style="width: 100%;">
+          🚀 Masuk dengan Google
+        </button>
+        <div id="authStatus" style="text-align: center; color: var(--text-secondary); font-size: 0.9rem; margin-top: 16px;">
+        </div>
+        <p style="margin-top: 32px; font-size: 12px; color: var(--text-secondary);">
+          diorganisir oleh Muhammad Rival
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div id="mainContainer" class="container hidden">
+        <!-- Header -->
+        <div class="header">
+          <div class="logo">
+            <img src="/assets/icon.png" alt="PeEmJe LinkSpace Logo">
+            <span>PeEmJe LinkSpace</span>
+          </div>
+          <div class="user-info">
+            <img id="userAvatar" class="user-avatar" src="" alt="Avatar" />
+            <div class="user-details">
+                <span id="userName"></span>
+                <div id="userRoleOrTags" class="badges-container"></div>
+            </div>
+            <button id="logoutBtn" class="btn btn-secondary">Keluar</button>
+          </div>
+        </div>
+        
+        <!-- Tutorial Card -->
+        <div id="tutorialCard" class="tutorial-card">
+            <span id="closeTutorialBtn" class="close-tutorial">&times;</span>
+            <h4>👋 Selamat Datang di PeEmJe LinkSpace!</h4>
+            <ul>
+                <li><strong>Tambah Link:</strong> Gunakan form "Tambah Link Baru" untuk menyimpan URL penting Anda.</li>
+                <li><strong>Filter Canggih:</strong> Klik tombol filter di atas daftar untuk menyortir link berdasarkan kategori.</li>
+                <li><strong>Admin:</strong> Jika Anda adalah admin, Anda dapat mengelola pengguna dan memberikan tag melalui Dasbor Admin.</li>
+            </ul>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="adminSection" class="admin-section hidden">
+          <div class="admin-title">👑 Dasbor Admin</div>
+          <div class="admin-tabs">
+            <button class="tab-btn active" data-tab="stats">Statistik</button>
+            <button class="tab-btn" data-tab="pending">Persetujuan</button>
+            <button class="tab-btn" data-tab="users">Kelola Pengguna</button>
+          </div>
+
+          <div id="statsContent" class="tab-content active">
+            <h3>Total Pengguna</h3>
+            <div class="chart-container">
+              <canvas id="userStatsChart"></canvas>
+            </div>
+          </div>
+          <div id="pendingContent" class="tab-content">
+            <h3>Menunggu Persetujuan</h3>
+            <div id="pendingUsers"></div>
+          </div>
+          <div id="usersContent" class="tab-content">
+            <h3>Semua Pengguna</h3>
+            <div id="allUsers"></div>
+          </div>
+        </div>
+
+        <!-- Add Link Form -->
+        <div id="addLinkSection" class="form-section hidden">
+          <h3>➕ Tambah Link Baru</h3>
+          <form id="addLinkForm">
+            <div class="form-group">
+              <label class="form-label" for="linkTitle">Judul Link</label>
+              <input type="text" id="linkTitle" class="form-input" placeholder="Contoh: Portofolio Desain" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="linkUrl">URL</label>
+              <input type="url" id="linkUrl" class="form-input" placeholder="https://example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="linkDescription">Deskripsi (Opsional)</label>
+              <input type="text" id="linkDescription" class="form-input" placeholder="Link menuju semua proyek desain saya" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Privasi</label>
+              <div class="privacy-options">
+                <div class="privacy-option">
+                  <input type="radio" id="privacyPublic" name="privacy" value="public" checked />
+                  <label for="privacyPublic">🌍 Publik</label>
+                </div>
+                <div class="privacy-option">
+                  <input type="radio" id="privacyPrivate" name="privacy" value="private" />
+                  <label for="privacyPrivate">🔒 Pribadi</label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn">💾 Simpan Link</button>
+          </form>
+        </div>
+
+        <!-- Search & Links -->
+        <div class="search-container">
+           <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Cari berdasarkan judul, url, atau deskripsi..." />
+        </div>
+        <div id="filterContainer"></div>
+        <div id="linksContainer">
+          <div class="loading">
+            <div class="spinner"></div>
+            <span>Memuat link...</span>
+          </div>
+        </div>
+    </div>
+
+    <!-- Edit Link Modal -->
+    <div id="editLinkModal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close" id="editModalClose">&times;</span>
+        <h3 style="margin-bottom: 20px; text-align: left;">✏️ Edit Link</h3>
+        <form id="editLinkForm" style="text-align: left;">
+            <input type="hidden" id="editLinkId" />
+            <div class="form-group">
+              <label for="editLinkTitle" class="form-label">Judul Link</label>
+              <input type="text" id="editLinkTitle" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label for="editLinkUrl" class="form-label">URL</label>
+              <input type="url" id="editLinkUrl" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label for="editLinkDescription" class="form-label">Deskripsi</label>
+              <input type="text" id="editLinkDescription" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Privasi</label>
+              <div class="privacy-options">
+                <div class="privacy-option">
+                  <input type="radio" id="editPrivacyPublic" name="editPrivacy" value="public" />
+                  <label for="editPrivacyPublic">🌍 Publik</label>
+                </div>
+                <div class="privacy-option">
+                  <input type="radio" id="editPrivacyPrivate" name="editPrivacy" value="private" />
+                  <label for="editPrivacyPrivate">🔒 Pribadi</label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn">💾 Simpan Perubahan</button>
+          </form>
+      </div>
+    </div>
+
+    <!-- Status Modal for Pending/Rejected Users -->
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <div id="statusModalIcon" class="modal-icon"></div>
+            <h3 id="statusModalTitle" style="margin-bottom: 10px;"></h3>
+            <p id="statusModalMessage" style="color: var(--text-secondary); margin-bottom: 25px;"></p>
+            <button id="statusModalBtn" class="btn"></button>
+        </div>
+    </div>
+    
+    <!-- Tag Management Modal -->
+    <div id="tagModal" class="modal">
+        <div class="modal-content" style="text-align: left;">
+            <span class="modal-close" id="tagModalClose">&times;</span>
+            <h3 id="tagModalTitle" style="margin-bottom: 20px;">Kelola Tag untuk </h3>
+            <div class="form-group">
+                <label class="form-label">Tag Saat Ini</label>
+                <div id="currentTags"></div>
+            </div>
+            <form id="addTagForm" class="form-group">
+                <label for="newTagInput" class="form-label">Tambah Tag Baru</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="newTagInput" class="form-input" placeholder="Contoh: Tim Marketing" />
+                    <button type="submit" class="btn">Tambah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Configuration -->
+    <script>
+      const firebaseConfig = {
+        apiKey: process.env.API_FIREBASE_LINKS,
+        authDomain: "links-6209c.firebaseapp.com",
+        projectId: "links-6209c",
+        storageBucket: "links-6209c.firebasestorage.app",
+        messagingSenderId: "809280798911",
+        appId: "1:809280798911:web:44b584a1fe48cd046b060a",
+      };
+
+      let auth, db;
+      try {
+        firebase.initializeApp(firebaseConfig);
+        auth = firebase.auth();
+        db = firebase.firestore();
+      } catch (error) {
+        console.error("Firebase initialization error:", error);
+        document.getElementById("authStatus").textContent = "Error: Gagal inisialisasi Firebase.";
+      }
+
+      // DOM Elements
+      const authContainer = document.getElementById("authContainer");
+      const mainContainer = document.getElementById("mainContainer");
+      const loginBtn = document.getElementById("loginBtn");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const authStatus = document.getElementById("authStatus");
+      const userAvatar = document.getElementById("userAvatar");
+      const userName = document.getElementById("userName");
+      const userRoleOrTagsContainer = document.getElementById('userRoleOrTags');
+      const adminSection = document.getElementById("adminSection");
+      const addLinkSection = document.getElementById("addLinkSection");
+      const addLinkForm = document.getElementById("addLinkForm");
+      const searchInput = document.getElementById("searchInput");
+      const linksContainer = document.getElementById("linksContainer");
+      const filterContainer = document.getElementById("filterContainer");
+      const pendingUsersContainer = document.getElementById("pendingUsers");
+      const allUsersContainer = document.getElementById("allUsers");
+      const editLinkModal = document.getElementById('editLinkModal');
+      const editModalClose = document.getElementById('editModalClose');
+      const editLinkForm = document.getElementById('editLinkForm');
+      const statusModal = document.getElementById('statusModal');
+      const statusModalBtn = document.getElementById('statusModalBtn');
+      const tagModal = document.getElementById('tagModal');
+      const tagModalClose = document.getElementById('tagModalClose');
+      const addTagForm = document.getElementById('addTagForm');
+      const newTagInput = document.getElementById('newTagInput');
+      const currentTagsContainer = document.getElementById('currentTags');
+      const tagModalTitle = document.getElementById('tagModalTitle');
+      const tutorialCard = document.getElementById('tutorialCard');
+      const closeTutorialBtn = document.getElementById('closeTutorialBtn');
+
+      let currentUser = null;
+      let isAdmin = false;
+      let allLinks = [];
+      let unsubscribes = [];
+      let userChartInstance = null;
+      let activeFilters = { mode: 'all', tags: [] };
+      let currentEditingUserId = null;
+
+
+      auth.onAuthStateChanged((user) => {
+        unsubscribes.forEach(unsub => unsub());
+        unsubscribes = [];
+
+        if (user) {
+          currentUser = user;
+          handleUserStatus(user);
+        } else {
+          currentUser = null;
+          isAdmin = false;
+          showAuthInterface();
+        }
+      });
+      
+      function handleUserStatus(user) {
+          const userDocRef = db.collection("users").doc(user.uid);
+
+          const userStatusListener = userDocRef.onSnapshot(async (doc) => {
+              if (!doc.exists) {
+                  await userDocRef.set({
+                      email: user.email,
+                      displayName: user.displayName,
+                      photoURL: user.photoURL,
+                      status: "pending",
+                      role: "user",
+                      tags: [],
+                      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                  });
+                  return;
+              }
+
+              const userData = doc.data();
+              // Attach role and tags to the currentUser object
+              currentUser.role = userData.role;
+              currentUser.tags = userData.tags || [];
+
+              switch (userData.status) {
+                  case "approved":
+                      hideStatusModal();
+                      isAdmin = userData.role === "admin";
+                      showMainInterface();
+                      loadLinksRealtime();
+                      if (isAdmin) {
+                          initializeAdminDashboard();
+                      } else {
+                          adminSection.classList.add("hidden");
+                      }
+                      addLinkSection.classList.remove("hidden");
+                      break;
+                  case "pending":
+                      showStatusModal('pending');
+                      break;
+                  case "rejected":
+                      showStatusModal('rejected');
+                      break;
+                  default:
+                      auth.signOut();
+                      break;
+              }
+          }, error => {
+              console.error("Error listening to user status:", error);
+              auth.signOut();
+          });
+          unsubscribes.push(userStatusListener);
+      }
+      
+      function showStatusModal(status) {
+        showAuthInterface();
+        mainContainer.classList.add('hidden');
+
+        const icon = document.getElementById('statusModalIcon');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+
+        if (status === 'pending') {
+            icon.textContent = '⏳';
+            title.textContent = 'Menunggu Persetujuan';
+            message.textContent = 'Akun Anda sedang ditinjau. Anda akan otomatis masuk setelah disetujui.';
+            statusModalBtn.textContent = 'Keluar';
+            statusModalBtn.onclick = () => auth.signOut();
+            statusModalBtn.className = 'btn btn-secondary';
+        } else { // rejected
+            icon.textContent = '❌';
+            title.textContent = 'Akses Ditolak';
+            message.innerHTML = 'Maaf, pendaftaran Anda ditolak. <br>Silakan hubungi admin di WA <a href="https://wa.me/628998419000" target="_blank">08998419000</a>.';
+            statusModalBtn.textContent = 'Kembali ke Halaman Login';
+            statusModalBtn.onclick = () => auth.signOut();
+            statusModalBtn.className = 'btn btn-danger';
+        }
+        statusModal.classList.add('show');
+      }
+
+      function hideStatusModal() { statusModal.classList.remove('show'); }
+
+      function showAuthInterface() {
+        authContainer.classList.remove("hidden");
+        mainContainer.classList.add("hidden");
+        adminSection.classList.add("hidden");
+        addLinkSection.classList.add("hidden");
+        hideStatusModal();
+      }
+
+      function showMainInterface() {
+        authContainer.classList.add("hidden");
+        mainContainer.classList.remove("hidden");
+        userAvatar.src = currentUser.photoURL || "https://placehold.co/40x40/E2E8F0/64748B?text=A";
+        userName.textContent = currentUser.displayName || currentUser.email;
+
+        // Display Admin role or user tags in the header
+        userRoleOrTagsContainer.innerHTML = ''; // Clear previous
+        if (isAdmin) {
+            userRoleOrTagsContainer.innerHTML = `<span class="tag-badge" style="background-color: var(--warning-color); color: #fffbeb;">Admin</span>`;
+        } else if (currentUser.tags && currentUser.tags.length > 0) {
+            const tagsHTML = currentUser.tags.map(tag => `<span class="tag-badge">#${escapeHtml(tag)}</span>`).join('');
+            userRoleOrTagsContainer.innerHTML = tagsHTML;
+        }
+      }
+
+      loginBtn.addEventListener("click", async () => {
+        authStatus.textContent = "Membuka jendela login...";
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try { await auth.signInWithPopup(provider); } 
+        catch (error) {
+          console.error("Login error:", error);
+          authStatus.textContent = `Gagal login. Coba lagi.`;
+        }
+      });
+
+      logoutBtn.addEventListener("click", () => auth.signOut());
+
+      addLinkForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const urlInput = document.getElementById("linkUrl");
+        let url = urlInput.value;
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'https://' + url;
+        }
+
+        try {
+            const userDoc = await db.collection('users').doc(currentUser.uid).get();
+            const userTags = userDoc.exists ? userDoc.data().tags || [] : [];
+
+            await db.collection("links").add({
+                title: document.getElementById("linkTitle").value,
+                url: url,
+                description: document.getElementById("linkDescription").value,
+                privacy: document.querySelector('input[name="privacy"]:checked').value,
+                userId: currentUser.uid,
+                userName: currentUser.displayName || currentUser.email,
+                userTags: userTags,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            addLinkForm.reset();
+            showMessage("Link berhasil ditambahkan!", "success");
+        } catch (error) {
+            console.error(error);
+            showMessage("Gagal menambahkan link.", "error");
+        }
+      });
+      
+      function loadLinksRealtime() {
+        if (!currentUser) return;
+        linksContainer.innerHTML = `<div class="loading"><div class="spinner"></div><span>Memuat link...</span></div>`;
+        const linksMap = new Map();
+        
+        const processAndDisplay = () => {
+            allLinks = Array.from(linksMap.values()).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+            renderFilters();
+            applyFilters();
+        };
+        
+        const publicQuery = db.collection("links").where("privacy", "==", "public");
+        const publicUnsubscribe = publicQuery.onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                if (change.type === "removed") linksMap.delete(change.doc.id);
+                else linksMap.set(change.doc.id, { id: change.doc.id, ...change.doc.data() });
+            });
+            processAndDisplay();
+        }, console.error);
+        
+        const privateQuery = db.collection("links").where("userId", "==", currentUser.uid).where("privacy", "==", "private");
+        const privateUnsubscribe = privateQuery.onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                if (change.type === "removed") linksMap.delete(change.doc.id);
+                else linksMap.set(change.doc.id, { id: change.doc.id, ...change.doc.data() });
+            });
+            processAndDisplay();
+        }, console.error);
+        
+        unsubscribes.push(publicUnsubscribe, privateUnsubscribe);
+      }
+
+      function renderFilters() {
+          const uniqueTags = [...new Set(allLinks.flatMap(link => link.userTags || []))];
+          let modeButtonsHTML = `
+            <button class="filter-btn mode-filter ${activeFilters.mode === 'all' ? 'active' : ''}" data-mode="all">Semua Link</button>
+            <button class="filter-btn mode-filter ${activeFilters.mode === 'myLinks' ? 'active' : ''}" data-mode="myLinks">Link Saya</button>
+            <button class="filter-btn mode-filter ${activeFilters.mode === 'privateOnly' ? 'active' : ''}" data-mode="privateOnly">Hanya Pribadi</button>
+          `;
+
+          let tagsHTML = uniqueTags.sort().map(tag => 
+            `<button class="filter-btn tag-filter ${activeFilters.tags.includes(tag) ? 'active' : ''}" data-tag="${escapeHtml(tag)}">#${escapeHtml(tag)}</button>`
+          ).join('');
+
+          filterContainer.innerHTML = modeButtonsHTML + (tagsHTML ? `<span style="border-left: 1px solid var(--border-color); margin: 0 8px;"></span>` + tagsHTML : '');
+
+          document.querySelectorAll('.mode-filter').forEach(btn => {
+              btn.addEventListener('click', () => {
+                  activeFilters.mode = btn.dataset.mode;
+                  applyFilters();
+              });
+          });
+
+          document.querySelectorAll('.tag-filter').forEach(btn => {
+              btn.addEventListener('click', () => {
+                  const tag = btn.dataset.tag;
+                  const index = activeFilters.tags.indexOf(tag);
+                  if (index > -1) {
+                      activeFilters.tags.splice(index, 1);
+                  } else {
+                      activeFilters.tags.push(tag);
+                  }
+                  applyFilters();
+              });
+          });
+      }
+
+      function applyFilters() {
+          let filteredLinks = [...allLinks];
+
+          // Apply mode filter first
+          if (activeFilters.mode === 'myLinks') {
+              filteredLinks = allLinks.filter(link => link.userId === currentUser.uid);
+          } else if (activeFilters.mode === 'privateOnly') {
+              filteredLinks = allLinks.filter(link => link.userId === currentUser.uid && link.privacy === 'private');
+          }
+
+          // Then apply tag filter on the result
+          if (activeFilters.tags.length > 0) {
+              filteredLinks = filteredLinks.filter(link => 
+                  activeFilters.tags.every(tag => (link.userTags || []).includes(tag))
+              );
+          }
+          
+          renderFilters(); // Re-render to update active states
+          displayLinks(filteredLinks);
+      }
+
+      function formatTimestamp(timestamp) {
+        if (!timestamp || !timestamp.toDate) {
+            return '';
+        }
+        const date = timestamp.toDate();
+        return date.toLocaleString('id-ID', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        }).replace(/\./g, ':');
+      }
+
+      function displayLinks(links) {
+        if (links.length === 0) {
+          linksContainer.innerHTML = `<div class="empty-state" style="padding: 40px 20px;"><h3>Tidak ada link yang cocok</h3><p>Coba ubah filter atau tambahkan link baru.</p></div>`;
+          return;
+        }
+        linksContainer.innerHTML = links.map(link => {
+            const isOwner = currentUser && link.userId === currentUser.uid;
+            const MAX_URL_LENGTH = 60;
+            const displayUrl = link.url.length > MAX_URL_LENGTH 
+                ? link.url.substring(0, MAX_URL_LENGTH) + '...' 
+                : link.url;
+            const tagsHTML = (link.userTags || []).map(tag => `<span class="tag-badge">#${escapeHtml(tag)}</span>`).join('');
+
+            return `
+                <div class="link-card">
+                    <div class="link-title">${escapeHtml(link.title)}</div>
+                    <div class="link-author-date">
+                        oleh ${escapeHtml(link.userName)} • ${formatTimestamp(link.createdAt)}
+                    </div>
+                    <a href="${escapeHtml(link.url)}" target="_blank" class="link-url" title="${escapeHtml(link.url)}">${escapeHtml(displayUrl)}</a>
+                    ${link.description ? `<p>${escapeHtml(link.description)}</p>`: ""}
+                    <div class="link-meta">
+                        <div class="badges-container">
+                            <span class="privacy-badge privacy-${link.privacy}">${link.privacy === "public" ? "🌍 Publik" : "🔒 Pribadi"}</span>
+                            ${tagsHTML}
+                        </div>
+                        <div class="link-actions">
+                            <button class="btn" onclick="copyToClipboard('${escapeHtml(link.url)}')" style="font-size: 12px; padding: 6px 12px; background-color: #fff; color: var(--text-primary); border: 1px solid var(--border-color);">📋 Salin</button>
+                            ${isOwner ? `
+                              <button class="btn btn-warning" onclick="openEditModal('${link.id}')" style="font-size: 12px; padding: 6px 12px;">✏️ Edit</button>
+                              <button class="btn btn-danger" onclick="deleteLink('${link.id}')" style="font-size: 12px; padding: 6px 12px;">🗑️ Hapus</button>
+                            ` : ""}
+                        </div>
+                    </div>
+                </div>`;
+            }).join("");
+      }
+
+      searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredLinks = allLinks.filter(link =>
+            Object.values(link).some(val => 
+                String(val).toLowerCase().includes(searchTerm)
+            )
+        );
+        displayLinks(filteredLinks);
+      });
+
+      async function deleteLink(linkId) {
+        if (!confirm("Yakin ingin menghapus link ini?")) return;
+        try {
+          await db.collection("links").doc(linkId).delete();
+          showMessage("Link berhasil dihapus!", "success");
+        } catch (error) {
+          showMessage("Gagal menghapus link.", "error");
+        }
+      }
+      
+      function openEditModal(linkId) {
+        const linkData = allLinks.find(link => link.id === linkId);
+        if (!linkData) return;
+        
+        editLinkId.value = linkId;
+        editLinkTitle.value = linkData.title;
+        editLinkUrl.value = linkData.url;
+        editLinkDescription.value = linkData.description || '';
+        document.querySelector(`input[name="editPrivacy"][value="${linkData.privacy}"]`).checked = true;
+        
+        editLinkModal.classList.add('show');
+      }
+      
+      editModalClose.addEventListener('click', () => editLinkModal.classList.remove('show'));
+      
+      editLinkForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const linkId = editLinkId.value;
+        const updatedData = {
+            title: editLinkTitle.value,
+            url: editLinkUrl.value,
+            description: editLinkDescription.value,
+            privacy: document.querySelector('input[name="editPrivacy"]:checked').value,
+        };
+        
+        try {
+            await db.collection('links').doc(linkId).update(updatedData);
+            editLinkModal.classList.remove('show');
+            showMessage('Link berhasil diperbarui!', 'success');
+        } catch(error) {
+            showMessage('Gagal memperbarui link.', 'error');
+        }
+      });
+
+      // --- ADMIN FUNCTIONS ---
+      function initializeAdminDashboard() {
+        adminSection.classList.remove("hidden");
+        setupAdminTabs();
+        loadAllUsersRealtime();
+      }
+
+      function setupAdminTabs() {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            tabs.forEach(item => item.classList.remove('active'));
+            tab.classList.add('active');
+            const target = document.getElementById(tab.dataset.tab + 'Content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            target.classList.add('active');
+          });
+        });
+      }
+
+      function loadAllUsersRealtime() {
+        if (!isAdmin) return;
+        const query = db.collection("users").orderBy("createdAt", "desc");
+        
+        const allUsersListener = query.onSnapshot(snapshot => {
+            const allUsers = [];
+            const pendingUsers = [];
+            snapshot.forEach(doc => {
+                const userData = { id: doc.id, ...doc.data() };
+                allUsers.push(userData);
+                if(userData.status === 'pending') {
+                    pendingUsers.push(userData);
+                }
+            });
+            displayPendingUsers(pendingUsers);
+            displayAllUsers(allUsers);
+            updateUserChart(allUsers);
+        }, console.error);
+        unsubscribes.push(allUsersListener);
+      }
+      
+      function displayPendingUsers(users) {
+        if (users.length === 0) {
+            pendingUsersContainer.innerHTML = '<p style="color: var(--text-secondary);">Tidak ada pengguna yang menunggu persetujuan.</p>';
+            return;
+        }
+        pendingUsersContainer.innerHTML = users.map(userData => `
+            <div class="user-list-item">
+                <div class="user-list-info">
+                <img src="${userData.photoURL || "https://placehold.co/32x32/E2E8F0/64748B?text=A"}" alt="Avatar" class="user-list-avatar">
+                <div>
+                    <div style="font-weight: 500;">${escapeHtml(userData.displayName || userData.email)}</div>
+                    <div style="color: var(--text-secondary); font-size: 14px;">${escapeHtml(userData.email)}</div>
+                </div>
+                </div>
+                <div class="link-actions">
+                <button class="btn btn-success" onclick="updateUserStatus('${userData.id}', 'approved')" style="padding: 6px 12px; font-size: 12px;">✅ Setujui</button>
+                <button class="btn btn-danger" onclick="updateUserStatus('${userData.id}', 'rejected')" style="padding: 6px 12px; font-size: 12px;">❌ Tolak</button>
+                </div>
+            </div>
+        `).join("");
+      }
+
+      function displayAllUsers(users) {
+        allUsersContainer.innerHTML = users.map(userData => {
+            const isSelf = currentUser.uid === userData.id;
+            const tagsHTML = (userData.tags || []).map(tag => `<span class="tag-badge">#${escapeHtml(tag)}</span>`).join('');
+            return `
+            <div class="user-list-item">
+                <div class="user-list-info">
+                  <img src="${userData.photoURL || "https://placehold.co/32x32/E2E8F0/64748B?text=A"}" alt="Avatar" class="user-list-avatar">
+                  <div>
+                      <div style="font-weight: 500;">${escapeHtml(userData.displayName)}</div>
+                      <div class="badges-container" style="margin-top: 4px;">
+                          ${tagsHTML || '<span style="font-size: 12px; color: var(--text-secondary);">Tidak ada tag</span>'}
+                      </div>
+                  </div>
+                </div>
+                <div class="link-actions">
+                  ${!isSelf ? `<button class="btn btn-info" onclick="openTagModal('${userData.id}', '${escapeHtml(userData.displayName)}')" style="padding: 6px 12px; font-size: 12px;">Kelola Tag</button>` : ''}
+                  ${!isSelf && (userData.status === 'pending' || userData.status === 'rejected') ? `<button class="btn btn-success" onclick="updateUserStatus('${userData.id}', 'approved')" style="padding: 6px 12px; font-size: 12px;">Setujui</button>` : ''}
+                  ${!isSelf && (userData.status === 'approved' || userData.status === 'pending') ? `<button class="btn btn-warning" onclick="updateUserStatus('${userData.id}', 'rejected')" style="padding: 6px 12px; font-size: 12px;">Blokir</button>` : ''}
+                  ${!isSelf ? `<button class="btn btn-danger" onclick="deleteUser('${userData.id}')" style="padding: 6px 12px; font-size: 12px;">Hapus</button>` : ''}
+                </div>
+            </div>
+        `}).join("");
+      }
+
+      function updateUserChart(users) {
+        const ctx = document.getElementById('userStatsChart').getContext('2d');
+        const statusCounts = users.reduce((acc, user) => {
+            acc[user.status] = (acc[user.status] || 0) + 1;
+            return acc;
+        }, {});
+
+        const labels = ['Disetujui', 'Menunggu', 'Ditolak/Blokir'];
+        const data = [
+            statusCounts.approved || 0,
+            statusCounts.pending || 0,
+            statusCounts.rejected || 0
+        ];
+
+        if(userChartInstance) {
+            userChartInstance.data.labels = labels;
+            userChartInstance.data.datasets[0].data = data;
+            userChartInstance.update();
+            return;
+        }
+
+        userChartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Pengguna',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(34, 197, 94, 0.7)',
+                        'rgba(245, 158, 11, 0.7)',
+                        'rgba(239, 68, 68, 0.7)',
+                    ],
+                    borderColor: [
+                        'rgba(34, 197, 94, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(239, 68, 68, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+      }
+
+      async function updateUserStatus(userId, status) {
+        const action = status === 'approved' ? 'menyetujui' : 'memblokir';
+        if (!confirm(`Yakin ingin ${action} pengguna ini?`)) return;
+        try { await db.collection("users").doc(userId).update({ status: status }); showMessage(`Pengguna berhasil di${status === 'approved' ? 'setujui' : 'blokir'}!`, "success"); } 
+        catch (error) { showMessage("Gagal memperbarui status pengguna.", "error"); }
+      }
+
+      async function deleteUser(userId) {
+        if (!confirm("PERINGATAN: Tindakan ini hanya menghapus data pengguna dari database, bukan dari sistem autentikasi Firebase. Yakin ingin melanjutkan?")) return;
+        try {
+            await db.collection("users").doc(userId).delete();
+            showMessage("Data pengguna berhasil dihapus.", "success");
+        } catch (error) {
+            showMessage("Gagal menghapus data pengguna.", "error");
+        }
+      }
+      
+      // --- TAG MANAGEMENT FUNCTIONS ---
+      tagModalClose.addEventListener('click', () => tagModal.classList.remove('show'));
+
+      async function openTagModal(userId, displayName) {
+        currentEditingUserId = userId;
+        tagModalTitle.textContent = `Kelola Tag untuk ${displayName}`;
+        
+        const userDoc = await db.collection('users').doc(userId).get();
+        if(!userDoc.exists) return;
+
+        const tags = userDoc.data().tags || [];
+        renderCurrentTags(tags);
+        tagModal.classList.add('show');
+      }
+
+      function renderCurrentTags(tags) {
+        currentTagsContainer.innerHTML = tags.map(tag => `
+            <span class="tag-item">
+                ${escapeHtml(tag)}
+                <span class="tag-remove" onclick="removeTag('${tag}')">&times;</span>
+            </span>
+        `).join('');
+      }
+
+      addTagForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const newTag = newTagInput.value.trim();
+        if (newTag && currentEditingUserId) {
+            const userRef = db.collection('users').doc(currentEditingUserId);
+            try {
+                await userRef.update({
+                    tags: firebase.firestore.FieldValue.arrayUnion(newTag)
+                });
+                const userDoc = await userRef.get();
+                renderCurrentTags(userDoc.data().tags || []);
+                newTagInput.value = '';
+            } catch (error) {
+                console.error("Error adding tag:", error);
+                showMessage("Gagal menambah tag.", "error");
+            }
+        }
+      });
+
+      async function removeTag(tagToRemove) {
+        if (!currentEditingUserId) return;
+        const userRef = db.collection('users').doc(currentEditingUserId);
+        try {
+            await userRef.update({
+                tags: firebase.firestore.FieldValue.arrayRemove(tagToRemove)
+            });
+            const userDoc = await userRef.get();
+            renderCurrentTags(userDoc.data().tags || []);
+        } catch (error) {
+            console.error("Error removing tag:", error);
+            showMessage("Gagal menghapus tag.", "error");
+        }
+      }
+
+      // --- TUTORIAL CARD LOGIC ---
+      document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('tutorialDismissed') === 'true') {
+            tutorialCard.style.display = 'none';
+        }
+      });
+
+      closeTutorialBtn.addEventListener('click', () => {
+        tutorialCard.style.display = 'none';
+        localStorage.setItem('tutorialDismissed', 'true');
+      });
+
+      function escapeHtml(text) {
+          const div = document.createElement("div");
+          div.textContent = text || "";
+          return div.innerHTML;
+      }
+      
+      function copyToClipboard(text) {
+          navigator.clipboard.writeText(text).then(() => {
+              showMessage('Link berhasil disalin!', 'success');
+          }, () => {
+              showMessage('Gagal menyalin link.', 'error');
+          });
+      }
+
+      function showMessage(message, type) {
+        const messageDiv = document.createElement("div");
+        messageDiv.style.cssText = `
+            position: fixed; top: 20px; right: 20px; padding: 12px 20px;
+            border-radius: 8px; color: white; font-weight: 500; z-index: 1001;
+            background-color: ${type === 'success' ? 'var(--success-color)' : 'var(--danger-color)'};
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease; transform: translateX(120%);`;
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+        setTimeout(() => { messageDiv.style.transform = 'translateX(0)'; }, 10);
+        setTimeout(() => {
+            messageDiv.style.transform = 'translateX(120%)';
+            messageDiv.addEventListener('transitionend', () => messageDiv.remove());
+        }, 3000);
+      }
+      
+      window.updateUserStatus = updateUserStatus;
+      window.deleteUser = deleteUser;
+      window.openEditModal = openEditModal;
+      window.copyToClipboard = copyToClipboard;
+      window.deleteLink = deleteLink;
+      window.openTagModal = openTagModal;
+      window.removeTag = removeTag;
+    </script>
+  </body>
+</html>
+
