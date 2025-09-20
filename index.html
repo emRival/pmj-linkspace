@@ -206,8 +206,10 @@
       .header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start; /* Align items to the top */
         margin-bottom: 40px;
+        flex-wrap: wrap;
+        gap: 20px;
       }
       
       .header .logo {
@@ -227,21 +229,30 @@
 
       .user-info {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 12px;
       }
       
       .user-details {
         text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        line-height: 1.4;
       }
 
       #userRoleOrTags {
-        margin-top: 2px;
-        min-height: 22px; /* Reserve space to prevent layout shift */
+        margin-top: 4px;
       }
 
       .user-info span#userName {
         font-weight: 600;
+        font-size: 15px;
+      }
+      
+      .user-info span#userEmail {
+        font-size: 13px;
+        color: var(--text-secondary);
       }
 
       .user-avatar {
@@ -274,14 +285,21 @@
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
+      
+      .btn-icon {
+        padding: 10px;
+        width: 40px;
+        height: 40px;
+      }
 
       .btn-secondary {
-        background: var(--card-background);
+        background-color: var(--card-background);
         color: var(--text-primary);
         border: 1px solid var(--border-color);
       }
       .btn-secondary:hover { background-color: #f1f5f9; }
        html[data-theme='dark'] .btn-secondary:hover { background-color: #334155; }
+      
       .btn-danger { background-color: var(--danger-color); }
       .btn-danger:hover { background-color: var(--danger-hover); }
       .btn-warning { background-color: var(--warning-color); }
@@ -625,13 +643,28 @@
       @media (max-width: 768px) {
         .container { padding: 20px 15px; }
         .auth-container { margin-top: 50px; padding: 30px; }
-        .header { flex-direction: column; gap: 20px; text-align: center; }
-        .header-controls { flex-direction: column; gap: 20px;}
-        .user-info { flex-direction: column; gap: 10px; }
-        .user-details { text-align: center; }
-        #userRoleOrTags.badges-container {
-            justify-content: center; /* Center tags on mobile */
+        .header {
+          flex-direction: column;
+          align-items: center;
+          gap: 24px;
         }
+        .header-controls {
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+        }
+        .user-info {
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+        }
+        .user-details {
+          text-align: center;
+        }
+        #userRoleOrTags.badges-container {
+            justify-content: center;
+        }
+        
         .link-meta { flex-direction: column; align-items: flex-start; gap: 12px; }
         .link-actions { width: 100%; justify-content: flex-start; }
         .user-list-item { flex-direction: column; align-items: flex-start; gap: 16px; }
@@ -672,10 +705,13 @@
               <img id="userAvatar" class="user-avatar" src="" alt="Avatar" />
               <div class="user-details">
                   <span id="userName"></span>
+                  <span id="userEmail" style="font-size: 13px; color: var(--text-secondary);"></span>
                   <div id="userRoleOrTags" class="badges-container"></div>
               </div>
             </div>
-            <button id="logoutBtn" class="btn btn-secondary">Keluar</button>
+            <button id="logoutBtn" class="btn btn-secondary btn-icon" title="Keluar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </button>
           </div>
         </div>
         
@@ -689,6 +725,11 @@
                 <li><strong>Admin:</strong> Jika Anda adalah admin, Anda dapat mengelola pengguna dan memberikan tag melalui Dasbor Admin.</li>
             </ul>
         </div>
+        
+        <!-- User Link Stats -->
+        <div id="userLinkStats" class="form-section hidden" style="margin-bottom: 24px;">
+            <!-- User link stats will be injected here -->
+        </div>
 
         <!-- Admin Section -->
         <div id="adminSection" class="admin-section hidden">
@@ -700,9 +741,14 @@
           </div>
 
           <div id="statsContent" class="tab-content active">
-            <h3>Total Pengguna</h3>
+            <h3>Statistik Pengguna</h3>
             <div class="chart-container">
               <canvas id="userStatsChart"></canvas>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 32px 0;">
+            <h3>Statistik Link</h3>
+             <div id="linkStatsContainer" style="margin-top: 20px;">
+                <!-- Link stats will be injected here -->
             </div>
           </div>
           <div id="pendingContent" class="tab-content">
@@ -865,6 +911,7 @@
       const authStatus = document.getElementById("authStatus");
       const userAvatar = document.getElementById("userAvatar");
       const userName = document.getElementById("userName");
+      const userEmail = document.getElementById('userEmail');
       const userRoleOrTagsContainer = document.getElementById('userRoleOrTags');
       const adminSection = document.getElementById("adminSection");
       const addLinkSection = document.getElementById("addLinkSection");
@@ -890,6 +937,7 @@
       const themeFab = document.getElementById('theme-fab');
       const fabSunIcon = document.getElementById('fab-sun-icon');
       const fabMoonIcon = document.getElementById('fab-moon-icon');
+      const userLinkStats = document.getElementById('userLinkStats');
 
       let currentUser = null;
       let isAdmin = false;
@@ -999,14 +1047,17 @@
         mainContainer.classList.add("hidden");
         adminSection.classList.add("hidden");
         addLinkSection.classList.add("hidden");
+        userLinkStats.classList.add("hidden");
         hideStatusModal();
       }
 
       function showMainInterface() {
         authContainer.classList.add("hidden");
         mainContainer.classList.remove("hidden");
+        userLinkStats.classList.remove("hidden");
         userAvatar.src = currentUser.photoURL || "https://placehold.co/40x40/E2E8F0/64748B?text=A";
         userName.textContent = currentUser.displayName || currentUser.email;
+        userEmail.textContent = currentUser.email;
 
         // Display Admin role or user tags in the header
         userRoleOrTagsContainer.innerHTML = ''; // Clear previous
@@ -1067,6 +1118,7 @@
         
         const processAndDisplay = () => {
             allLinks = Array.from(linksMap.values()).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+            updateLinkStats();
             renderFilters();
             applyFilters();
         };
@@ -1090,6 +1142,33 @@
         }, console.error);
         
         unsubscribes.push(publicUnsubscribe, privateUnsubscribe);
+      }
+
+       function updateLinkStats() {
+          // Update personal stats for everyone
+          const myLinks = allLinks.filter(link => link.userId === currentUser.uid);
+          userLinkStats.innerHTML = `
+            <h4 style="margin-bottom: 16px; text-align: center;">Statistik Link Saya</h4>
+            <div style="display: flex; justify-content: space-around; text-align: center;">
+                <div><div style="font-size: 1.5rem; font-weight: bold;">${myLinks.length}</div><div style="color: var(--text-secondary);">Total</div></div>
+                <div><div style="font-size: 1.5rem; font-weight: bold;">${myLinks.filter(l => l.privacy === 'public').length}</div><div style="color: var(--text-secondary);">Publik</div></div>
+                <div><div style="font-size: 1.5rem; font-weight: bold;">${myLinks.filter(l => l.privacy === 'private').length}</div><div style="color: var(--text-secondary);">Pribadi</div></div>
+            </div>`;
+
+          // Update admin-specific stats if applicable
+          if (isAdmin) {
+              const linkStatsContainer = document.getElementById('linkStatsContainer');
+              if (linkStatsContainer) {
+                  linkStatsContainer.innerHTML = `
+                    <div style="display: flex; justify-content: space-around; text-align: center;">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold;">${allLinks.length}</div>
+                            <div style="color: var(--text-secondary);">Total Link Terlihat</div>
+                        </div>
+                    </div>
+                  `;
+              }
+          }
       }
 
       function renderFilters() {
@@ -1328,8 +1407,9 @@
                   <img src="${userData.photoURL || "https://placehold.co/32x32/E2E8F0/64748B?text=A"}" alt="Avatar" class="user-list-avatar">
                   <div>
                       <div style="font-weight: 500;">${escapeHtml(userData.displayName)}</div>
+                      <div style="color: var(--text-secondary); font-size: 13px;">${escapeHtml(userData.email)}</div>
                       <div class="badges-container" style="margin-top: 4px;">
-                          ${tagsHTML || '<span style="font-size: 12px; color: var(--text-secondary);">Tidak ada tag</span>'}
+                          ${tagsHTML}
                       </div>
                   </div>
                 </div>
