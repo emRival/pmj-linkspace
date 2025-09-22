@@ -1413,6 +1413,13 @@
     }
 
      function applyFilters() {
+        // ================================================================
+        // BAGIAN YANG DIPERBAIKI:
+        // Panggil renderFilters() di sini untuk menggambar ulang tombol 
+        // dengan status 'active' yang terbaru.
+        // ================================================================
+        renderFilters();
+
         let filteredLinks = [...allLinks];
 
         if (activeFilters.mode === 'myLinks') {
