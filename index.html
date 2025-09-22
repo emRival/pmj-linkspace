@@ -4,24 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PeEmJe LinkSpace</title>
-  
+
     <meta name="title" content="PeEmJe Link Space" />
     <meta
       name="description"
-      content="PeEmJe LinkSpace: Hub digital IDN Pamijahan Bogor untuk manajemen link sekolah & pribadi. Kumpulan link terpusat untuk guru, staf, & tim manajemen. Optimalkan efisiensi, kolaborasi, & akses cepat ke semua sumber daya penting harian." />
+      content="PeEmJe LinkSpace: Hub digital terpadu untuk mengorganisasi setiap koneksi penting dalam hidup Anda. Lebih dari sekadar kumpulan link, ini adalah ruang pribadi yang dinamis untuk menyatukan semua yang Anda butuhkan—dari materi manajemen sekolah hingga referensi pribadi—dalam satu tempat yang rapi dan mudah diakses." />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pmj-linkspace.vercel.app/" />
     <meta property="og:title" content="PeEmJe LinkSpace" />
     <meta
       property="og:description"
-      content="PeEmJe LinkSpace: Hub digital IDN Pamijahan Bogor untuk manajemen link sekolah & pribadi. Kumpulan link terpusat untuk guru, staf, & tim manajemen. Optimalkan efisiensi, kolaborasi, & akses cepat ke semua sumber daya penting harian." />
+      content="PeEmJe LinkSpace: Hub digital terpadu untuk mengorganisasi setiap koneksi penting dalam hidup Anda. Lebih dari sekadar kumpulan link, ini adalah ruang pribadi yang dinamis untuk menyatukan semua yang Anda butuhkan—dari materi manajemen sekolah hingga referensi pribadi—dalam satu tempat yang rapi dan mudah diakses." />
     <meta
       property="og:image"
       content="https://pmj-linkspace.vercel.app/assets/apple-icon-144x144.png" />
 
-    <!-- X (Twitter) -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta
       property="twitter:url"
@@ -29,15 +27,12 @@
     <meta property="twitter:title" content="PeEmJe LinkSpace" />
     <meta
       property="twitter:description"
-      content="PeEmJe LinkSpace: Hub digital IDN Pamijahan Bogor untuk manajemen link sekolah & pribadi. Kumpulan link terpusat untuk guru, staf, & tim manajemen. Optimalkan efisiensi, kolaborasi, & akses cepat ke semua sumber daya penting harian." />
+      content="PeEmJe LinkSpace: Hub digital terpadu untuk mengorganisasi setiap koneksi penting dalam hidup Anda. Lebih dari sekadar kumpulan link, ini adalah ruang pribadi yang dinamis untuk menyatukan semua yang Anda butuhkan—dari materi manajemen sekolah hingga referensi pribadi—dalam satu tempat yang rapi dan mudah diakses." />
     <meta
       property="twitter:image"
       content="https://pmj-linkspace.vercel.app/assets/apple-icon-144x144.png" />
 
-    <!-- Meta Tags Generated with https://metatags.io -->
     <meta name="theme-color" content="#0f172a" />
-    <!-- Manifest yang diperbaiki -->
-
     <link
       rel="apple-touch-icon"
       sizes="57x57"
@@ -104,8 +99,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
@@ -298,7 +292,7 @@
         border: 1px solid var(--border-color);
       }
       .btn-secondary:hover { background-color: #f1f5f9; }
-       html[data-theme='dark'] .btn-secondary:hover { background-color: #334155; }
+        html[data-theme='dark'] .btn-secondary:hover { background-color: #334155; }
       
       .btn-danger { background-color: var(--danger-color); }
       .btn-danger:hover { background-color: var(--danger-hover); }
@@ -309,11 +303,11 @@
 
 
       /* --- Forms & Search --- */
-       .form-section, .link-card, .admin-section, .modal-content, .auth-container, .tutorial-card {
+        .form-section, .link-card, .admin-section, .modal-content, .auth-container, .tutorial-card {
         transition: background-color 0.3s, border-color 0.3s;
-       }
+        }
 
-       .form-section {
+        .form-section {
         background: var(--card-background);
         padding: 24px;
         border-radius: 12px;
@@ -334,7 +328,7 @@
         font-size: 14px;
       }
 
-      .form-input {
+      .form-input, .form-select {
         width: 100%;
         padding: 10px 14px;
         border: 1px solid var(--border-color);
@@ -344,9 +338,10 @@
         transition: all 0.2s ease;
         background-color: var(--background-color);
         color: var(--text-primary);
+        font-family: "Inter", sans-serif;
       }
       
-      .form-input:focus {
+      .form-input:focus, .form-select:focus {
         border-color: var(--primary-color);
         box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
       }
@@ -377,6 +372,38 @@
         padding: 20px;
         margin-bottom: 16px;
         border: 1px solid var(--border-color);
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      
+      .link-card.selected {
+        border-color: var(--primary-color);
+        background-color: #f0f2ff;
+      }
+      html[data-theme='dark'] .link-card.selected {
+        background-color: #2a3a5a;
+      }
+
+      .link-card-main {
+        flex-grow: 1;
+      }
+      .link-card-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .pin-btn {
+        cursor: pointer;
+        font-size: 20px;
+        color: var(--text-secondary);
+        transition: color 0.2s, transform 0.2s;
+      }
+      .pin-btn.pinned {
+        color: var(--warning-color);
+        transform: rotate(45deg);
       }
       
       .link-card:hover {
@@ -492,6 +519,45 @@
       .tab-badge.visible {
         display: inline-block; /* Shown when it has a count */
       }
+      
+      #pendingUsers, #allUsers, #folderList {
+        max-height: 40vh;
+        overflow-y: auto;
+        padding-right: 10px;
+        margin-right: -10px; /* Counteract padding */
+      }
+      
+      #pendingUsers::-webkit-scrollbar,
+      #allUsers::-webkit-scrollbar,
+      #folderList::-webkit-scrollbar {
+        width: 8px;
+      }
+      #pendingUsers::-webkit-scrollbar-track,
+      #allUsers::-webkit-scrollbar-track,
+      #folderList::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #pendingUsers::-webkit-scrollbar-thumb,
+      #allUsers::-webkit-scrollbar-thumb,
+      #folderList::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 8px;
+      }
+        #pendingUsers::-webkit-scrollbar-thumb:hover,
+      #allUsers::-webkit-scrollbar-thumb:hover,
+      #folderList::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary);
+      }
+
+       #foldersContent .user-list-item {
+        flex-direction: row; /* Paksa tetap horizontal */
+        align-items: center; /* Sejajarkan item secara vertikal */
+    }
+
+    #foldersContent .user-list-item button {
+        flex-shrink: 0; /* Mencegah tombol menyusut jika nama folder panjang */
+        margin-left: 16px; /* Beri sedikit jarak */
+    }
 
       /* --- Modal --- */
       .modal {
@@ -547,18 +613,47 @@
         to { transform: rotate(360deg); }
       }
 
-      /* --- Link Container Scroll --- */
+      /* --- Link Container & Bulk Actions --- */
+     #linksSection {
+        padding-bottom: 80px; /* Space for bulk action bar */
+        max-height: 65vh; /* Batasi tinggi kontainer link */
+        overflow-y: auto;   /* Tambahkan scrollbar vertikal jika konten meluap */
+        padding-right: 10px;/* Beri sedikit ruang untuk scrollbar */
+    }
       #linksContainer {
-        max-height: 60vh;
-        overflow-y: auto;
-        padding-right: 10px;
-        margin-right: -10px;
+        min-height: 200px;
       }
-
-      #linksContainer::-webkit-scrollbar { width: 8px; }
-      #linksContainer::-webkit-scrollbar-track { background: transparent; }
-      #linksContainer::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 8px; }
-      #linksContainer::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+      #pinnedLinksContainer, #regularLinksContainer { margin-top: 16px; }
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      
+      #bulkActionBar {
+        position: fixed;
+        bottom: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        max-width: 90%;
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        padding: 12px 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: bottom 0.3s ease-in-out;
+      }
+      #bulkActionBar.visible {
+        bottom: 20px;
+      }
 
       /* --- Filters & Tags --- */
       #filterContainer { 
@@ -688,7 +783,6 @@
     </style>
   </head>
   <body>
-    <!-- Auth Container -->
     <div id="authContainer" class="container">
       <div class="auth-container">
         <div class="logo auth-logo">
@@ -707,9 +801,7 @@
       </div>
     </div>
 
-    <!-- Main Container -->
     <div id="mainContainer" class="container hidden">
-        <!-- Header -->
         <div class="header">
           <div class="logo">
             <img src="/assets/icon.png" alt="PeEmJe LinkSpace Logo">
@@ -730,7 +822,6 @@
           </div>
         </div>
         
-        <!-- Tutorial Card -->
         <div id="tutorialCard" class="tutorial-card">
             <span id="closeTutorialBtn" class="close-tutorial">&times;</span>
             <h4>👋 Selamat Datang di PeEmJe LinkSpace!</h4>
@@ -741,18 +832,16 @@
             </ul>
         </div>
         
-        <!-- User Link Stats -->
         <div id="userLinkStats" class="form-section hidden" style="margin-bottom: 24px;">
-            <!-- User link stats will be injected here -->
-        </div>
+            </div>
 
-        <!-- Admin Section -->
         <div id="adminSection" class="admin-section hidden">
           <div class="admin-title">👑 Dasbor Admin</div>
           <div class="admin-tabs">
             <button class="tab-btn active" data-tab="stats">Statistik</button>
             <button class="tab-btn" data-tab="pending">Persetujuan <span id="pendingCountBadge" class="tab-badge"></span></button>
             <button class="tab-btn" data-tab="users">Kelola Pengguna <span id="totalUsersBadge" class="tab-badge"></span></button>
+            <button class="tab-btn" data-tab="folders">Kelola Folder</button>
           </div>
 
           <div id="statsContent" class="tab-content active">
@@ -762,9 +851,8 @@
             </div>
             <hr style="border: none; border-top: 1px solid var(--border-color); margin: 32px 0;">
             <h3>Statistik Link</h3>
-             <div id="linkStatsContainer" style="margin-top: 20px;">
-                <!-- Link stats will be injected here -->
-            </div>
+              <div id="linkStatsContainer" style="margin-top: 20px;">
+                </div>
           </div>
           <div id="pendingContent" class="tab-content">
             <h3>Menunggu Persetujuan</h3>
@@ -772,11 +860,25 @@
           </div>
           <div id="usersContent" class="tab-content">
             <h3>Semua Pengguna</h3>
+            <div class="search-container" style="margin-bottom: 16px;">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="userSearchInput" class="search-input" placeholder="Cari berdasarkan nama atau email..." />
+            </div>
             <div id="allUsers"></div>
+          </div>
+          <div id="foldersContent" class="tab-content">
+            <h3>Manajemen Folder</h3>
+            <form id="addFolderForm" class="form-group">
+                <label for="newFolderInput" class="form-label">Buat Folder Baru</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="newFolderInput" class="form-input" placeholder="Nama Folder" required />
+                    <button type="submit" class="btn">Buat</button>
+                </div>
+            </form>
+            <div id="folderList"></div>
           </div>
         </div>
 
-        <!-- Add Link Form -->
         <div id="addLinkSection" class="form-section hidden">
           <h3>➕ Tambah Link Baru</h3>
           <form id="addLinkForm">
@@ -788,9 +890,15 @@
               <label class="form-label" for="linkUrl">URL</label>
               <input type="url" id="linkUrl" class="form-input" placeholder="https://example.com" required />
             </div>
+              <div class="form-group">
+              <label class="form-label" for="linkFolder">Folder (Opsional)</label>
+              <select id="linkFolder" class="form-select">
+                <option value="">Tidak ada folder</option>
+              </select>
+            </div>
             <div class="form-group">
               <label class="form-label" for="linkDescription">Deskripsi (Opsional)</label>
-              <input type="text" id="linkDescription" class="form-input" placeholder="Link menuju semua proyek desain saya" />
+             <textarea id="linkDescription" class="form-input" placeholder="Link menuju semua proyek desain saya" rows="3"></textarea>
             </div>
             <div class="form-group">
               <label class="form-label">Privasi</label>
@@ -809,21 +917,30 @@
           </form>
         </div>
 
-        <!-- Search & Links -->
         <div class="search-container">
-           <span class="search-icon">🔍</span>
+            <span class="search-icon">🔍</span>
           <input type="text" id="searchInput" class="search-input" placeholder="Cari berdasarkan judul, url, atau deskripsi..." />
         </div>
         <div id="filterContainer"></div>
-        <div id="linksContainer">
-          <div class="loading">
-            <div class="spinner"></div>
-            <span>Memuat link...</span>
+        <div id="linksSection">
+          <div id="pinnedLinksContainer"></div>
+          <div id="regularLinksContainer"></div>
+          <div id="linksContainerPlaceholder" class="hidden">
+            <div class="loading">
+              <div class="spinner"></div>
+              <span>Memuat link...</span>
+            </div>
           </div>
         </div>
     </div>
+    
+    <div id="bulkActionBar">
+        <span id="selectionCount"></span>
+        <select id="bulkMoveFolderSelect" class="form-select" style="width: 150px;"></select>
+        <button id="bulkMoveBtn" class="btn btn-info">Pindah</button>
+        <button id="bulkDeleteBtn" class="btn btn-danger">Hapus</button>
+    </div>
 
-    <!-- Edit Link Modal -->
     <div id="editLinkModal" class="modal">
       <div class="modal-content">
         <span class="modal-close" id="editModalClose">&times;</span>
@@ -838,9 +955,13 @@
               <label for="editLinkUrl" class="form-label">URL</label>
               <input type="url" id="editLinkUrl" class="form-input" required />
             </div>
+              <div class="form-group">
+              <label class="form-label" for="editLinkFolder">Folder</label>
+              <select id="editLinkFolder" class="form-select"></select>
+            </div>
             <div class="form-group">
               <label for="editLinkDescription" class="form-label">Deskripsi</label>
-              <input type="text" id="editLinkDescription" class="form-input" />
+             <textarea id="editLinkDescription" class="form-input" rows="3"></textarea>
             </div>
             <div class="form-group">
               <label class="form-label">Privasi</label>
@@ -860,7 +981,6 @@
       </div>
     </div>
 
-    <!-- Status Modal for Pending/Rejected Users -->
     <div id="statusModal" class="modal">
         <div class="modal-content">
             <div id="statusModalIcon" class="modal-icon"></div>
@@ -870,7 +990,6 @@
         </div>
     </div>
     
-    <!-- Tag Management Modal -->
     <div id="tagModal" class="modal">
         <div class="modal-content" style="text-align: left;">
             <span class="modal-close" id="tagModalClose">&times;</span>
@@ -889,13 +1008,11 @@
         </div>
     </div>
 
-    <!-- Theme Toggle FAB -->
     <button id="theme-fab" class="fab">
         <span id="fab-sun-icon">☀️</span>
         <span id="fab-moon-icon" class="hidden">🌙</span>
     </button>
 
-    <!-- Firebase Configuration -->
     <script>
       // Konfigurasi Firebase ini aman untuk ditaruh di sisi klien.
       // Keamanan diatur oleh Firestore Security Rules, bukan dengan menyembunyikan konfigurasi ini.
@@ -903,7 +1020,7 @@
         apiKey: "AIzaSyAPBg8IE40Zkwy3FnRxyUwwai4Wwuntebw",
         authDomain: "links-6209c.firebaseapp.com",
         projectId: "links-6209c",
-        storageBucket: "links-6209c.firebasestorage.app",
+        storageBucket: "links-6209c.appspot.com",
         messagingSenderId: "809280798911",
         appId: "1:809280798911:web:44b584a1fe48cd046b060a",
       };
@@ -932,7 +1049,9 @@
       const addLinkSection = document.getElementById("addLinkSection");
       const addLinkForm = document.getElementById("addLinkForm");
       const searchInput = document.getElementById("searchInput");
-      const linksContainer = document.getElementById("linksContainer");
+      const pinnedLinksContainer = document.getElementById("pinnedLinksContainer");
+      const regularLinksContainer = document.getElementById("regularLinksContainer");
+      const linksContainerPlaceholder = document.getElementById("linksContainerPlaceholder");
       const filterContainer = document.getElementById("filterContainer");
       const pendingUsersContainer = document.getElementById("pendingUsers");
       const allUsersContainer = document.getElementById("allUsers");
@@ -953,15 +1072,26 @@
       const fabSunIcon = document.getElementById('fab-sun-icon');
       const fabMoonIcon = document.getElementById('fab-moon-icon');
       const userLinkStats = document.getElementById('userLinkStats');
+      const addFolderForm = document.getElementById('addFolderForm');
+      const newFolderInput = document.getElementById('newFolderInput');
+      const folderListContainer = document.getElementById('folderList');
+      const bulkActionBar = document.getElementById('bulkActionBar');
+      const selectionCount = document.getElementById('selectionCount');
+      const bulkMoveFolderSelect = document.getElementById('bulkMoveFolderSelect');
+      const bulkMoveBtn = document.getElementById('bulkMoveBtn');
+      const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+      const userSearchInput = document.getElementById('userSearchInput');
 
       let currentUser = null;
       let isAdmin = false;
       let allLinks = [];
+      let allFolders = [];
+      let selectedLinks = new Set();
       let unsubscribes = [];
       let userChartInstance = null;
-      let activeFilters = { mode: 'all', tags: [] };
+      let activeFilters = { mode: 'all', tags: [], folderId: 'all' };
       let currentEditingUserId = null;
-
+      let completeUserList = [];
 
       auth.onAuthStateChanged((user) => {
         unsubscribes.forEach(unsub => unsub());
@@ -976,6 +1106,25 @@
           showAuthInterface();
         }
       });
+
+      function filterAndDisplayUsers() {
+        const searchTerm = userSearchInput.value.toLowerCase();
+
+        // Jika kotak pencarian kosong, tampilkan semua pengguna
+        if (!searchTerm) {
+            displayAllUsers(completeUserList);
+            return;
+        }
+
+        // Filter daftar pengguna berdasarkan nama atau email
+        const filteredUsers = completeUserList.filter(user => {
+            const name = user.displayName?.toLowerCase() || '';
+            const email = user.email?.toLowerCase() || '';
+            return name.includes(searchTerm) || email.includes(searchTerm);
+        });
+
+        displayAllUsers(filteredUsers);
+    }
       
       function handleUserStatus(user) {
           const userDocRef = db.collection("users").doc(user.uid);
@@ -995,15 +1144,23 @@
               }
 
               const userData = doc.data();
-              // Attach role and tags to the currentUser object
-              currentUser.role = userData.role;
-              currentUser.tags = userData.tags || [];
+          // Menjadi ini:
+            currentUser.role = userData.role;
+            currentUser.tags = userData.tags || [];
+            // Buat Set untuk mengecek pin dengan cepat
+            currentUser.pinnedLinks = new Set(userData.pinnedLinks || []); 
+
+             // Perintahkan untuk menggambar ulang link setiap kali ada perubahan pada data user (termasuk pin)
+            if (allLinks.length > 0) { // Hanya render jika link sudah dimuat
+                applyFilters(); 
+            }
 
               switch (userData.status) {
                   case "approved":
                       hideStatusModal();
                       isAdmin = userData.role === "admin";
                       showMainInterface();
+                      listenToFolders(); // <-- FUNGSI YANG DIPERBAIKI
                       loadLinksRealtime();
                       if (isAdmin) {
                           initializeAdminDashboard();
@@ -1074,7 +1231,6 @@
         userName.textContent = currentUser.displayName || currentUser.email;
         userEmail.textContent = currentUser.email;
 
-        // Display Admin role or user tags in the header
         userRoleOrTagsContainer.innerHTML = ''; // Clear previous
         if (isAdmin) {
             userRoleOrTagsContainer.innerHTML = `<span class="tag-badge" style="background-color: var(--warning-color); color: #fffbeb;">Admin</span>`;
@@ -1083,6 +1239,11 @@
             userRoleOrTagsContainer.innerHTML = tagsHTML;
         }
       }
+
+          bulkDeleteBtn.addEventListener('click', handleBulkDelete);
+          bulkMoveBtn.addEventListener('click', handleBulkMove);
+          userSearchInput.addEventListener('input', filterAndDisplayUsers);
+
 
       loginBtn.addEventListener("click", async () => {
         authStatus.textContent = "Membuka jendela login...";
@@ -1107,6 +1268,7 @@
         try {
             const userDoc = await db.collection('users').doc(currentUser.uid).get();
             const userTags = userDoc.exists ? userDoc.data().tags || [] : [];
+            const folderId = document.getElementById("linkFolder").value;
 
             await db.collection("links").add({
                 title: document.getElementById("linkTitle").value,
@@ -1116,6 +1278,8 @@
                 userId: currentUser.uid,
                 userName: currentUser.displayName || currentUser.email,
                 userTags: userTags,
+                folderId: folderId || null,
+                isPinned: false,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             });
             addLinkForm.reset();
@@ -1128,15 +1292,27 @@
       
       function loadLinksRealtime() {
         if (!currentUser) return;
-        linksContainer.innerHTML = `<div class="loading"><div class="spinner"></div><span>Memuat link...</span></div>`;
+        
+        linksContainerPlaceholder.classList.remove('hidden');
+        pinnedLinksContainer.innerHTML = '';
+        regularLinksContainer.innerHTML = '';
+        
         const linksMap = new Map();
         
-        const processAndDisplay = () => {
-            allLinks = Array.from(linksMap.values()).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-            updateLinkStats();
-            renderFilters();
-            applyFilters();
-        };
+       const processAndDisplay = () => {
+        allLinks = Array.from(linksMap.values()).sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+        
+        updateLinkStats();
+        updateActionFolderDropdowns(allFolders);
+        renderFilters();
+        
+        const folderCounts = countLinksInFolders();
+        if (isAdmin) {
+            renderFolderList(allFolders, folderCounts);
+        }
+        
+        applyFilters();
+    };
         
         const publicQuery = db.collection("links").where("privacy", "==", "public");
         const publicUnsubscribe = publicQuery.onSnapshot(snapshot => {
@@ -1147,11 +1323,17 @@
             processAndDisplay();
         }, console.error);
         
-        const privateQuery = db.collection("links").where("userId", "==", currentUser.uid).where("privacy", "==", "private");
+        const privateQuery = db.collection("links").where("userId", "==", currentUser.uid);
         const privateUnsubscribe = privateQuery.onSnapshot(snapshot => {
             snapshot.docChanges().forEach(change => {
-                if (change.type === "removed") linksMap.delete(change.doc.id);
-                else linksMap.set(change.doc.id, { id: change.doc.id, ...change.doc.data() });
+                if (change.type === "removed") {
+                    linksMap.delete(change.doc.id);
+                } else {
+                    // Make sure we don't add public links twice
+                    if(change.doc.data().privacy !== 'public') {
+                      linksMap.set(change.doc.id, { id: change.doc.id, ...change.doc.data() });
+                    }
+                }
             });
             processAndDisplay();
         }, console.error);
@@ -1159,8 +1341,7 @@
         unsubscribes.push(publicUnsubscribe, privateUnsubscribe);
       }
 
-       function updateLinkStats() {
-          // Update personal stats for everyone
+        function updateLinkStats() {
           const myLinks = allLinks.filter(link => link.userId === currentUser.uid);
           userLinkStats.innerHTML = `
             <h4 style="margin-bottom: 16px; text-align: center;">Statistik Link Saya</h4>
@@ -1170,77 +1351,92 @@
                 <div><div style="font-size: 1.5rem; font-weight: bold;">${myLinks.filter(l => l.privacy === 'private').length}</div><div style="color: var(--text-secondary);">Pribadi</div></div>
             </div>`;
 
-          // Update admin-specific stats if applicable
           if (isAdmin) {
               const linkStatsContainer = document.getElementById('linkStatsContainer');
               if (linkStatsContainer) {
                   linkStatsContainer.innerHTML = `
-                    <div style="display: flex; justify-content: space-around; text-align: center;">
-                        <div>
-                            <div style="font-size: 2rem; font-weight: bold;">${allLinks.length}</div>
-                            <div style="color: var(--text-secondary);">Total Link Terlihat</div>
-                        </div>
-                    </div>
+                      <div style="display: flex; justify-content: space-around; text-align: center;">
+                          <div>
+                              <div style="font-size: 2rem; font-weight: bold;">${allLinks.length}</div>
+                              <div style="color: var(--text-secondary);">Total Link Terlihat</div>
+                          </div>
+                      </div>
                   `;
               }
           }
       }
 
       function renderFilters() {
-          const uniqueTags = [...new Set(allLinks.flatMap(link => link.userTags || []))];
-          let modeButtonsHTML = `
+        const folderCounts = countLinksInFolders();
+
+        let folderFilterHTML = '<select id="folderFilter" class="form-select" style="width: auto;"><option value="all">Semua Folder</option>';
+        allFolders.forEach(folder => {
+            const count = folderCounts[folder.id] || 0;
+            folderFilterHTML += `<option value="${folder.id}" ${activeFilters.folderId === folder.id ? 'selected' : ''}>${escapeHtml(folder.name)} (${count})</option>`;
+        });
+        folderFilterHTML += '</select>';
+
+        const uniqueTags = [...new Set(allLinks.flatMap(link => link.userTags || []))];
+        let modeButtonsHTML = `
             <button class="filter-btn mode-filter ${activeFilters.mode === 'all' ? 'active' : ''}" data-mode="all">Semua Link</button>
             <button class="filter-btn mode-filter ${activeFilters.mode === 'myLinks' ? 'active' : ''}" data-mode="myLinks">Link Saya</button>
-            <button class="filter-btn mode-filter ${activeFilters.mode === 'privateOnly' ? 'active' : ''}" data-mode="privateOnly">Hanya Pribadi</button>
-          `;
+        `;
 
-          let tagsHTML = uniqueTags.sort().map(tag => 
+        let tagsHTML = uniqueTags.sort().map(tag => 
             `<button class="filter-btn tag-filter ${activeFilters.tags.includes(tag) ? 'active' : ''}" data-tag="${escapeHtml(tag)}">#${escapeHtml(tag)}</button>`
-          ).join('');
+        ).join('');
 
-          filterContainer.innerHTML = modeButtonsHTML + (tagsHTML ? `<span style="border-left: 1px solid var(--border-color); margin: 0 8px;"></span>` + tagsHTML : '');
+        filterContainer.innerHTML = folderFilterHTML + modeButtonsHTML + (tagsHTML ? `<span style="border-left: 1px solid var(--border-color); margin: 0 8px;"></span>` + tagsHTML : '');
 
-          document.querySelectorAll('.mode-filter').forEach(btn => {
-              btn.addEventListener('click', () => {
-                  activeFilters.mode = btn.dataset.mode;
-                  applyFilters();
-              });
-          });
+        document.getElementById('folderFilter').addEventListener('change', (e) => {
+            activeFilters.folderId = e.target.value;
+            applyFilters();
+        });
+        document.querySelectorAll('.mode-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeFilters.mode = btn.dataset.mode;
+                applyFilters();
+            });
+        });
+        document.querySelectorAll('.tag-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tag = btn.dataset.tag;
+                const index = activeFilters.tags.indexOf(tag);
+                if (index > -1) {
+                    activeFilters.tags.splice(index, 1);
+                } else {
+                    activeFilters.tags.push(tag);
+                }
+                applyFilters();
+            });
+        });
+    }
 
-          document.querySelectorAll('.tag-filter').forEach(btn => {
-              btn.addEventListener('click', () => {
-                  const tag = btn.dataset.tag;
-                  const index = activeFilters.tags.indexOf(tag);
-                  if (index > -1) {
-                      activeFilters.tags.splice(index, 1);
-                  } else {
-                      activeFilters.tags.push(tag);
-                  }
-                  applyFilters();
-              });
-          });
-      }
+     function applyFilters() {
+        let filteredLinks = [...allLinks];
 
-      function applyFilters() {
-          let filteredLinks = [...allLinks];
+        if (activeFilters.mode === 'myLinks') {
+            filteredLinks = filteredLinks.filter(link => link.userId === currentUser.uid);
+        }
 
-          // Apply mode filter first
-          if (activeFilters.mode === 'myLinks') {
-              filteredLinks = allLinks.filter(link => link.userId === currentUser.uid);
-          } else if (activeFilters.mode === 'privateOnly') {
-              filteredLinks = allLinks.filter(link => link.userId === currentUser.uid && link.privacy === 'private');
-          }
+        if (activeFilters.folderId !== 'all') {
+            filteredLinks = filteredLinks.filter(link => (link.folderId || "") === activeFilters.folderId);
+        }
 
-          // Then apply tag filter on the result
-          if (activeFilters.tags.length > 0) {
-              filteredLinks = filteredLinks.filter(link => 
-                  activeFilters.tags.every(tag => (link.userTags || []).includes(tag))
-              );
-          }
-          
-          renderFilters(); // Re-render to update active states
-          displayLinks(filteredLinks);
-      }
+        if (activeFilters.tags.length > 0) {
+            filteredLinks = filteredLinks.filter(link => 
+                activeFilters.tags.every(tag => (link.userTags || []).includes(tag))
+            );
+        }
+        
+        displayLinks(filteredLinks);
+    }
+        
+        // ================================================================
+        // BAGIAN YANG DIPERBAIKI:
+        // Hapus pemanggilan renderFilters() dari sini.
+        // Fungsi ini sekarang hanya fokus menampilkan link yang sudah difilter.
+  
 
       function formatTimestamp(timestamp) {
         if (!timestamp || !timestamp.toDate) {
@@ -1256,26 +1452,139 @@
         }).replace(/\./g, ':');
       }
 
-      function displayLinks(links) {
-        if (links.length === 0) {
-          linksContainer.innerHTML = `<div class="empty-state" style="padding: 40px 20px;"><h3>Tidak ada link yang cocok</h3><p>Coba ubah filter atau tambahkan link baru.</p></div>`;
-          return;
-        }
-        linksContainer.innerHTML = links.map(link => {
-            const isOwner = currentUser && link.userId === currentUser.uid;
-            const MAX_URL_LENGTH = 60;
-            const displayUrl = link.url.length > MAX_URL_LENGTH 
-                ? link.url.substring(0, MAX_URL_LENGTH) + '...' 
-                : link.url;
-            const tagsHTML = (link.userTags || []).map(tag => `<span class="tag-badge">#${escapeHtml(tag)}</span>`).join('');
+      // --- BULK ACTION FUNCTIONS ---
 
-            return `
-                <div class="link-card">
+    async function handleBulkDelete() {
+        const linksToDelete = Array.from(selectedLinks);
+        if (linksToDelete.length === 0) return;
+        if (!confirm(`Yakin ingin menghapus ${linksToDelete.length} link yang dipilih?`)) return;
+
+        const batch = db.batch();
+        let deletedCount = 0;
+        let permissionErrors = 0;
+
+        // Loop melalui setiap link yang dipilih
+        for (const linkId of linksToDelete) {
+            const linkData = allLinks.find(link => link.id === linkId);
+            if (!linkData) continue;
+
+            // Pengecekan Izin: Pengguna adalah pemilik ATAU pengguna adalah admin
+            if (linkData.userId === currentUser.uid || isAdmin) {
+                const linkRef = db.collection("links").doc(linkId);
+                batch.delete(linkRef);
+                deletedCount++;
+            } else {
+                permissionErrors++;
+            }
+        }
+
+        try {
+            await batch.commit(); // Kirim semua permintaan hapus sekaligus
+            if (deletedCount > 0) {
+                showMessage(`${deletedCount} link berhasil dihapus.`, 'success');
+            }
+            if (permissionErrors > 0) {
+                showMessage(`${permissionErrors} link tidak dihapus karena bukan milik Anda.`, 'warning');
+            }
+            selectedLinks.clear();
+            updateBulkActionBar(); // Sembunyikan action bar
+            // UI akan diperbarui otomatis oleh listener realtime
+        } catch (error) {
+            console.error("Error bulk deleting links:", error);
+            showMessage("Gagal menghapus link secara massal.", "error");
+        }
+    }
+
+    async function handleBulkMove() {
+        const linksToMove = Array.from(selectedLinks);
+        // Ambil folder tujuan dari dropdown, atau null jika "Tidak ada folder"
+        const targetFolderId = bulkMoveFolderSelect.value || null; 
+        if (linksToMove.length === 0) return;
+
+        const batch = db.batch();
+        let movedCount = 0;
+        let permissionErrors = 0;
+
+        for (const linkId of linksToMove) {
+            const linkData = allLinks.find(link => link.id === linkId);
+            if (!linkData) continue;
+
+            // Pengecekan Izin: Pengguna adalah pemilik ATAU pengguna adalah admin
+            if (linkData.userId === currentUser.uid || isAdmin) {
+                const linkRef = db.collection("links").doc(linkId);
+                batch.update(linkRef, { folderId: targetFolderId });
+                movedCount++;
+            } else {
+                permissionErrors++;
+            }
+        }
+
+        try {
+            await batch.commit(); // Kirim semua permintaan update sekaligus
+            if (movedCount > 0) {
+                showMessage(`${movedCount} link berhasil dipindahkan.`, 'success');
+            }
+            if (permissionErrors > 0) {
+                showMessage(`${permissionErrors} link tidak dipindahkan karena bukan milik Anda.`, 'warning');
+            }
+            selectedLinks.clear();
+            updateBulkActionBar(); // Sembunyikan action bar
+            // UI akan diperbarui otomatis oleh listener realtime
+        } catch (error) {
+            console.error("Error bulk moving links:", error);
+            showMessage("Gagal memindahkan link secara massal.", "error");
+        }
+    }
+
+      function displayLinks(links) {
+        linksContainerPlaceholder.classList.add('hidden');
+        
+        // ================================================================
+        // BAGIAN YANG DIPERBAIKI:
+        // Filter link berdasarkan daftar pin PRIBADI milik currentUser
+        // ================================================================
+        const pinnedLinks = links.filter(link => currentUser.pinnedLinks && currentUser.pinnedLinks.has(link.id));
+        const regularLinks = links.filter(link => !currentUser.pinnedLinks || !currentUser.pinnedLinks.has(link.id));
+
+        // Sisa kode di bawah ini sebagian besar sama, hanya untuk menampilkan hasil filter
+        pinnedLinksContainer.innerHTML = pinnedLinks.length > 0 ? `<h3 class="section-title">⭐ Favorit</h3>` + pinnedLinks.map(link => renderLinkCard(link)).join('') : '';
+        
+        let regularLinksHTML = '';
+        if (regularLinks.length > 0) {
+            // Hanya tampilkan judul "Link Lainnya" jika ada link yang di-pin
+            if (pinnedLinks.length > 0) {
+                regularLinksHTML += `<h3 class="section-title">Link Lainnya</h3>`;
+            }
+            regularLinksHTML += regularLinks.map(link => renderLinkCard(link)).join('');
+        }
+        regularLinksContainer.innerHTML = regularLinksHTML;
+
+        if (links.length === 0) {
+            regularLinksContainer.innerHTML = `<div class="empty-state" style="padding: 40px 20px; text-align: center;"><h3>Tidak ada link yang ditemukan</h3><p>Coba buat link baru atau ubah filter pencarian Anda.</p></div>`;
+        }
+    }
+
+      function renderLinkCard(link) {
+        const isOwner = currentUser && link.userId === currentUser.uid;
+        const isSelected = selectedLinks.has(link.id);
+
+        // ================================================================
+        // BAGIAN PENTING 1:
+        // Memeriksa status pin dari daftar PRIBADI milik currentUser.
+        // ================================================================
+        const isPinned = currentUser.pinnedLinks && currentUser.pinnedLinks.has(link.id);
+
+        const tagsHTML = (link.userTags || []).map(tag => `<span class="tag-badge">#${escapeHtml(tag)}</span>`).join('');
+        
+        return `
+            <div class="link-card ${isSelected ? 'selected' : ''}" data-link-id="${link.id}">
+                <input type="checkbox" class="link-checkbox" data-id="${link.id}" ${isSelected ? 'checked' : ''} onchange="toggleLinkSelection('${link.id}', this)">
+                <div class="link-card-main">
                     <div class="link-title">${escapeHtml(link.title)}</div>
                     <div class="link-author-date">
                         oleh ${escapeHtml(link.userName)} • ${formatTimestamp(link.createdAt)}
                     </div>
-                    <a href="${escapeHtml(link.url)}" target="_blank" class="link-url" title="${escapeHtml(link.url)}">${escapeHtml(displayUrl)}</a>
+                    <a href="${escapeHtml(link.url)}" target="_blank" class="link-url" title="${escapeHtml(link.url)}">${escapeHtml(link.url)}</a>
                     ${link.description ? `<p>${escapeHtml(link.description)}</p>`: ""}
                     <div class="link-meta">
                         <div class="badges-container">
@@ -1285,14 +1594,22 @@
                         <div class="link-actions">
                             <button class="btn btn-secondary" onclick="copyToClipboard('${escapeHtml(link.url)}')" style="font-size: 12px; padding: 6px 12px;">📋 Salin</button>
                             ${isOwner ? `
-                              <button class="btn btn-warning" onclick="openEditModal('${link.id}')" style="font-size: 12px; padding: 6px 12px;">✏️ Edit</button>
-                              <button class="btn btn-danger" onclick="deleteLink('${link.id}')" style="font-size: 12px; padding: 6px 12px;">🗑️ Hapus</button>
+                            <button class="btn btn-warning" onclick="openEditModal('${link.id}')" style="font-size: 12px; padding: 6px 12px;">✏️ Edit</button>
+                            <button class="btn btn-danger" onclick="deleteLink('${link.id}')" style="font-size: 12px; padding: 6px 12px;">🗑️ Hapus</button>
                             ` : ""}
                         </div>
                     </div>
-                </div>`;
-            }).join("");
-      }
+                </div>
+                <div class="link-card-actions">
+                    <span 
+                        class="pin-btn ${isPinned ? 'pinned' : ''}"
+                        onclick="togglePin('${link.id}')">
+                        📌
+                    </span>
+                </div>
+            </div>`;
+    }
+
 
       searchInput.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -1313,6 +1630,29 @@
           showMessage("Gagal menghapus link.", "error");
         }
       }
+
+      async function togglePin(linkId) {
+        if (!currentUser) return;
+        
+        const userRef = db.collection('users').doc(currentUser.uid);
+        const isCurrentlyPinned = currentUser.pinnedLinks.has(linkId);
+
+        // Gunakan arrayUnion untuk menambah & arrayRemove untuk menghapus
+        const updateData = {
+            pinnedLinks: isCurrentlyPinned
+                ? firebase.firestore.FieldValue.arrayRemove(linkId) // Jika sudah di-pin, hapus
+                : firebase.firestore.FieldValue.arrayUnion(linkId)  // Jika belum, tambahkan
+        };
+
+        try {
+            await userRef.update(updateData);
+            // Listener onSnapshot pada data pengguna akan menangani pembaruan UI secara otomatis
+            showMessage(`Link berhasil di-${!isCurrentlyPinned ? 'sematkan' : 'lepas'}!`, 'success');
+        } catch (error) {
+            console.error("Gagal memperbarui status pin:", error);
+            showMessage("Gagal mengubah status pin.", "error");
+        }
+    }
       
       function openEditModal(linkId) {
         const linkData = allLinks.find(link => link.id === linkId);
@@ -1324,6 +1664,9 @@
         editLinkDescription.value = linkData.description || '';
         document.querySelector(`input[name="editPrivacy"][value="${linkData.privacy}"]`).checked = true;
         
+        const folderSelect = document.getElementById('editLinkFolder');
+        folderSelect.value = linkData.folderId || "";
+
         editLinkModal.classList.add('show');
       }
       
@@ -1337,6 +1680,7 @@
             url: editLinkUrl.value,
             description: editLinkDescription.value,
             privacy: document.querySelector('input[name="editPrivacy"]:checked').value,
+            folderId: document.getElementById('editLinkFolder').value || null,
         };
         
         try {
@@ -1374,38 +1718,25 @@
         const query = db.collection("users").orderBy("createdAt", "desc");
         
         const allUsersListener = query.onSnapshot(snapshot => {
-            const allUsers = [];
+            const allUsersData = []; // Ganti nama variabel sementara
             const pendingUsers = [];
             snapshot.forEach(doc => {
                 const userData = { id: doc.id, ...doc.data() };
-                allUsers.push(userData);
+                allUsersData.push(userData);
                 if(userData.status === 'pending') {
                     pendingUsers.push(userData);
                 }
             });
 
-            // Update badges
-            const pendingBadge = document.getElementById('pendingCountBadge');
-            const totalUsersBadge = document.getElementById('totalUsersBadge');
-            
-            if (pendingUsers.length > 0) {
-              pendingBadge.textContent = pendingUsers.length;
-              pendingBadge.classList.add('visible');
-            } else {
-              pendingBadge.classList.remove('visible');
-            }
+            // Simpan daftar lengkap pengguna ke variabel global
+            completeUserList = allUsersData;
 
-            if (allUsers.length > 0) {
-              totalUsersBadge.textContent = allUsers.length;
-              totalUsersBadge.classList.add('visible');
-            } else {
-              totalUsersBadge.classList.remove('visible');
-            }
-
+            // Update badges ... (kode ini tetap sama)
 
             displayPendingUsers(pendingUsers);
-            displayAllUsers(allUsers);
-            updateUserChart(allUsers);
+            // Panggil fungsi baru untuk menampilkan pengguna (sudah termasuk logika filter)
+            filterAndDisplayUsers(); 
+            updateUserChart(allUsersData);
         }, console.error);
         unsubscribes.push(allUsersListener);
       }
@@ -1439,20 +1770,20 @@
             return `
             <div class="user-list-item">
                 <div class="user-list-info">
-                  <img src="${userData.photoURL || "https://placehold.co/32x32/E2E8F0/64748B?text=A"}" alt="Avatar" class="user-list-avatar">
-                  <div>
-                      <div style="font-weight: 500;">${escapeHtml(userData.displayName)}</div>
-                      <div style="color: var(--text-secondary); font-size: 13px;">${escapeHtml(userData.email)}</div>
-                      <div class="badges-container" style="margin-top: 4px;">
-                          ${tagsHTML}
-                      </div>
-                  </div>
+                    <img src="${userData.photoURL || "https://placehold.co/32x32/E2E8F0/64748B?text=A"}" alt="Avatar" class="user-list-avatar">
+                    <div>
+                        <div style="font-weight: 500;">${escapeHtml(userData.displayName)}</div>
+                        <div style="color: var(--text-secondary); font-size: 13px;">${escapeHtml(userData.email)}</div>
+                        <div class="badges-container" style="margin-top: 4px;">
+                            ${tagsHTML}
+                        </div>
+                    </div>
                 </div>
                 <div class="link-actions">
-                  ${!isSelf ? `<button class="btn btn-info" onclick="openTagModal('${userData.id}', '${escapeHtml(userData.displayName)}')" style="padding: 6px 12px; font-size: 12px;">Kelola Tag</button>` : ''}
-                  ${!isSelf && (userData.status === 'pending' || userData.status === 'rejected') ? `<button class="btn btn-success" onclick="updateUserStatus('${userData.id}', 'approved')" style="padding: 6px 12px; font-size: 12px;">Setujui</button>` : ''}
-                  ${!isSelf && (userData.status === 'approved' || userData.status === 'pending') ? `<button class="btn btn-warning" onclick="updateUserStatus('${userData.id}', 'rejected')" style="padding: 6px 12px; font-size: 12px;">Blokir</button>` : ''}
-                  ${!isSelf ? `<button class="btn btn-danger" onclick="deleteUser('${userData.id}', '${escapeHtml(userData.displayName)}')" style="padding: 6px 12px; font-size: 12px;">Hapus</button>` : ''}
+                    ${!isSelf ? `<button class="btn btn-info" onclick="openTagModal('${userData.id}', '${escapeHtml(userData.displayName)}')" style="padding: 6px 12px; font-size: 12px;">Kelola Tag</button>` : ''}
+                    ${!isSelf && (userData.status === 'pending' || userData.status === 'rejected') ? `<button class="btn btn-success" onclick="updateUserStatus('${userData.id}', 'approved')" style="padding: 6px 12px; font-size: 12px;">Setujui</button>` : ''}
+                    ${!isSelf && (userData.status === 'approved' || userData.status === 'pending') ? `<button class="btn btn-warning" onclick="updateUserStatus('${userData.id}', 'rejected')" style="padding: 6px 12px; font-size: 12px;">Blokir</button>` : ''}
+                    ${!isSelf ? `<button class="btn btn-danger" onclick="deleteUser('${userData.id}', '${escapeHtml(userData.displayName)}')" style="padding: 6px 12px; font-size: 12px;">Hapus</button>` : ''}
                 </div>
             </div>
         `}).join("");
@@ -1583,6 +1914,41 @@
         `).join('');
       }
 
+      function toggleLinkSelection(linkId, checkbox) {
+        const linkCard = checkbox.closest('.link-card');
+        if (checkbox.checked) {
+            selectedLinks.add(linkId);
+            linkCard.classList.add('selected');
+        } else {
+            selectedLinks.delete(linkId);
+            linkCard.classList.remove('selected');
+        }
+        updateBulkActionBar();
+    }
+
+    function updateBulkActionBar() {
+        const count = selectedLinks.size;
+        if (count > 0) {
+            selectionCount.textContent = `${count} link dipilih`;
+            bulkActionBar.classList.add('visible');
+        } else {
+            bulkActionBar.classList.remove('visible');
+        }
+    }
+
+  function countLinksInFolders() {
+        const counts = {};
+        allFolders.forEach(folder => {
+            counts[folder.id] = 0;
+        });
+        allLinks.forEach(link => {
+            if (link.folderId && counts.hasOwnProperty(link.folderId)) {
+                counts[link.folderId]++;
+            }
+        });
+        return counts;
+    }
+
       addTagForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const newTag = newTagInput.value.trim();
@@ -1617,6 +1983,114 @@
         }
       }
 
+      // --- FOLDER MANAGEMENT FUNCTIONS (NEW) ---
+      function listenToFolders() {
+        if (!currentUser) return;
+        const folderQuery = db.collection("folders").orderBy("name", "asc");
+
+        const folderListener = folderQuery.onSnapshot(snapshot => {
+            allFolders = [];
+            snapshot.forEach(doc => {
+                allFolders.push({ id: doc.id, ...doc.data() });
+            });
+
+            const folderCounts = countLinksInFolders();
+            
+            updateActionFolderDropdowns(allFolders);
+            renderFilters(); 
+            
+            if (isAdmin) {
+                renderFolderList(allFolders, folderCounts);
+            }
+            
+        }, error => {
+            console.error("Error listening to folders:", error);
+        });
+
+        unsubscribes.push(folderListener);
+    }
+
+      function updateActionFolderDropdowns(folders) {
+        const selects = [
+            document.getElementById('linkFolder'),
+            document.getElementById('editLinkFolder'),
+            document.getElementById('bulkMoveFolderSelect')
+        ];
+        
+        selects.forEach(select => {
+            if (!select) return;
+            const currentValue = select.value;
+            let optionsHTML = '<option value="">Tidak ada folder</option>';
+            folders.forEach(folder => {
+                optionsHTML += `<option value="${folder.id}">${escapeHtml(folder.name)}</option>`;
+            });
+            select.innerHTML = optionsHTML;
+            if (folders.some(f => f.id === currentValue)) {
+                select.value = currentValue;
+            }
+        });
+    }
+
+      function renderFolderList(folders, counts) {
+        if (!folderListContainer || !counts) return; // Pengaman tambahan
+        if (folders.length === 0) {
+            folderListContainer.innerHTML = '<p>Belum ada folder yang dibuat.</p>';
+            return;
+        }
+        folderListContainer.innerHTML = folders.map(folder => `
+            <div class="user-list-item">
+                <div>
+                    <span style="font-weight: 500;">${escapeHtml(folder.name)}</span>
+                    <span style="color: var(--text-secondary); font-size: 13px; margin-left: 8px;">
+                        ${counts[folder.id] || 0} item
+                    </span>
+                </div>
+                <button class="btn btn-danger" onclick="deleteFolder('${folder.id}', '${escapeHtml(folder.name)}')" style="padding: 6px 12px; font-size: 12px; flex-shrink: 0;">Hapus</button>
+            </div>
+        `).join('');
+    }
+
+      addFolderForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const folderName = newFolderInput.value.trim();
+          if (folderName && isAdmin) {
+              try {
+                  await db.collection('folders').add({
+                      name: folderName,
+                      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                  });
+                  newFolderInput.value = '';
+                  showMessage('Folder berhasil dibuat!', 'success');
+              } catch (error) {
+                  console.error("Error adding folder:", error);
+                  showMessage('Gagal membuat folder.', 'error');
+              }
+          }
+      });
+
+      async function deleteFolder(folderId, folderName) {
+          if (!confirm(`Yakin ingin menghapus folder "${folderName}"? Semua link di dalamnya akan dipindahkan ke "Tidak ada folder".`)) return;
+
+          try {
+              const linksSnapshot = await db.collection('links').where('folderId', '==', folderId).get();
+              const batch = db.batch();
+
+              linksSnapshot.forEach(doc => {
+                  const linkRef = db.collection('links').doc(doc.id);
+                  batch.update(linkRef, { folderId: null });
+              });
+
+              const folderRef = db.collection('folders').doc(folderId);
+              batch.delete(folderRef);
+
+              await batch.commit();
+              showMessage(`Folder "${folderName}" berhasil dihapus.`, 'success');
+          } catch (error) {
+              console.error("Error deleting folder:", error);
+              showMessage('Gagal menghapus folder.', 'error');
+          }
+      }
+      
       // --- TUTORIAL CARD LOGIC ---
       document.addEventListener('DOMContentLoaded', () => {
         if (localStorage.getItem('tutorialDismissed') === 'true') {
@@ -1698,7 +2172,10 @@
       window.deleteLink = deleteLink;
       window.openTagModal = openTagModal;
       window.removeTag = removeTag;
+      window.deleteFolder = deleteFolder; // <-- Expose deleteFolder function
+      window.togglePin = togglePin;
+      window.toggleLinkSelection = toggleLinkSelection; // <-- TAMBAHKAN INI
+      
     </script>
   </body>
 </html>
-
