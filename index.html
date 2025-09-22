@@ -467,7 +467,21 @@
         margin-bottom: 32px;
       }
       .admin-title { font-size: 1.5rem; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; }
-      .admin-tabs { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); overflow-x: auto;}
+      .admin-tabs { 
+        display: flex; 
+        gap: 8px; 
+        margin-bottom: 24px; 
+        border-bottom: 1px solid var(--border-color); 
+        overflow-x: auto; /* Izinkan scroll horizontal */
+        flex-wrap: nowrap;  /* Mencegah tab turun ke bawah */
+        -ms-overflow-style: none;  /* Sembunyikan scrollbar di IE dan Edge */
+        scrollbar-width: none;  /* Sembunyikan scrollbar di Firefox */
+      }
+
+      /* Sembunyikan scrollbar di Chrome, Safari, dan Opera */
+      .admin-tabs::-webkit-scrollbar {
+        display: none;
+      }
       .tab-btn {
         padding: 8px 16px;
         border: none;
@@ -841,7 +855,7 @@
             <button class="tab-btn active" data-tab="stats">Statistik</button>
             <button class="tab-btn" data-tab="pending">Persetujuan <span id="pendingCountBadge" class="tab-badge"></span></button>
             <button class="tab-btn" data-tab="users">Kelola Pengguna <span id="totalUsersBadge" class="tab-badge"></span></button>
-            <button class="tab-btn" data-tab="folders">Kelola Folder</button>
+            <button class="tab-btn" data-tab="folders">Kelola Folder <span id="totalFoldersBadge" class="tab-badge"></span></button>
           </div>
 
           <div id="statsContent" class="tab-content active">
@@ -1725,23 +1739,42 @@
         const query = db.collection("users").orderBy("createdAt", "desc");
         
         const allUsersListener = query.onSnapshot(snapshot => {
-            const allUsersData = []; // Ganti nama variabel sementara
+            const allUsersData = [];
             const pendingUsers = [];
             snapshot.forEach(doc => {
                 const userData = { id: doc.id, ...doc.data() };
                 allUsersData.push(userData);
-                if(userData.status === 'pending') {
+                if (userData.status === 'pending') {
                     pendingUsers.push(userData);
                 }
             });
 
-            // Simpan daftar lengkap pengguna ke variabel global
             completeUserList = allUsersData;
 
-            // Update badges ... (kode ini tetap sama)
+            // ================================================================
+            // BAGIAN YANG DIPERBAIKI: Memperbarui semua badge
+            // ================================================================
+            const pendingBadge = document.getElementById('pendingCountBadge');
+            const totalUsersBadge = document.getElementById('totalUsersBadge');
+
+            // Badge untuk Persetujuan
+            if (pendingUsers.length > 0) {
+                pendingBadge.textContent = pendingUsers.length;
+                pendingBadge.classList.add('visible');
+            } else {
+                pendingBadge.classList.remove('visible');
+            }
+
+            // Badge untuk Total Pengguna
+            if (allUsersData.length > 0) {
+                totalUsersBadge.textContent = allUsersData.length;
+                totalUsersBadge.classList.add('visible');
+            } else {
+                totalUsersBadge.classList.remove('visible');
+            }
+            // ================================================================
 
             displayPendingUsers(pendingUsers);
-            // Panggil fungsi baru untuk menampilkan pengguna (sudah termasuk logika filter)
             filterAndDisplayUsers(); 
             updateUserChart(allUsersData);
         }, console.error);
@@ -2000,6 +2033,18 @@
             snapshot.forEach(doc => {
                 allFolders.push({ id: doc.id, ...doc.data() });
             });
+            
+            // ================================================================
+            // BAGIAN YANG DIPERBAIKI: Menambahkan logika untuk badge folder
+            // ================================================================
+            const totalFoldersBadge = document.getElementById('totalFoldersBadge');
+            if (allFolders.length > 0) {
+                totalFoldersBadge.textContent = allFolders.length;
+                totalFoldersBadge.classList.add('visible');
+            } else {
+                totalFoldersBadge.classList.remove('visible');
+            }
+            // ================================================================
 
             const folderCounts = countLinksInFolders();
             
