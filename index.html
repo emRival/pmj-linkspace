@@ -354,6 +354,19 @@
         width: 100%;
         padding: 6px 14px;
         border: 1px solid var(--border-color);
+        border-radius: 9px;
+        font-size: 13px;
+        outline: none;
+        transition: all 0.2s ease;
+        background-color: var(--background-color);
+        color: var(--text-primary);
+        font-family: "Inter", sans-serif;
+      }
+
+       .form-select.folder {
+        width: 100%;
+        padding: 6px 14px;
+        border: 1px solid var(--border-color);
         border-radius: 99px;
         font-size: 13px;
         outline: none;
@@ -363,7 +376,7 @@
         font-family: "Inter", sans-serif;
       }
 
-      .form-select {
+      .form-select, .form-select.folder {
         appearance: none; /* Sembunyikan panah bawaan */
         -webkit-appearance: none;
 
@@ -374,6 +387,8 @@
         background-size: 1.5em 1.5em;
         padding-right: 2.5rem; /* Beri ruang di kanan untuk panah baru */
       }
+
+      
 
       .form-input:focus,
       .form-select:focus {
@@ -1857,7 +1872,7 @@
         const folderCounts = countLinksInFolders();
 
         // --- Bagian Kiri: Membuat elemen filter ---
-        let folderFilterHTML = `<select id="folderFilter" class="form-select" style="width: auto;"><option value="all">Semua Folder</option>`;
+        let folderFilterHTML = `<select id="folderFilter" class="folder form-select" style="width: auto;"><option value="all">Semua Folder</option>`;
         allFolders.forEach((folder) => {
           const count = folderCounts[folder.id] || 0;
           folderFilterHTML += `<option value="${folder.id}" ${
