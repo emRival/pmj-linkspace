@@ -365,7 +365,7 @@
 
        .form-select.folder {
         width: 100%;
-        padding: 6px 14px;
+        padding: 9px 14px;
         border: 1px solid var(--border-color);
         border-radius: 99px;
         font-size: 13px;
@@ -1905,7 +1905,11 @@
         const uniqueTags = [
           ...new Set(allLinks.flatMap((link) => link.userTags || [])),
         ];
-        let modeButtonsHTML = `<button class="filter-btn mode-filter" data-mode="all">Semua Link</button><button class="filter-btn mode-filter" data-mode="myLinks">Link Saya</button>`;
+        let modeButtonsHTML = `
+            <button class="filter-btn mode-filter" data-mode="all">🌍 Publik</button>
+            <button class="filter-btn mode-filter" data-mode="myLinks">🧑‍💻 Milik Saya</button>
+            <button class="filter-btn mode-filter" data-mode="private">🔒 Pribadi</button>
+        `;
         let tagsHTML = uniqueTags
           .sort()
           .map(
@@ -2074,6 +2078,9 @@
           filteredLinks = filteredLinks.filter(
             (link) => link.userId === currentUser.uid
           );
+        } else if (activeFilters.mode === 'private') {
+            // LOGIKA BARU: Tampilkan hanya link pribadi milik pengguna saat ini
+            filteredLinks = filteredLinks.filter(link => link.privacy === 'private' && link.userId === currentUser.uid);
         }
         if (activeFilters.folderId !== "all") {
           filteredLinks = filteredLinks.filter(
